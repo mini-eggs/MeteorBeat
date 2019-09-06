@@ -1,8 +1,15 @@
+# Meteor Beat
+
+#### About
+
 Group Name: Pulsar
-Group Logo: ...
 Game Name: Meteor Beat
 
-Coding standards:
+<img src="https://github.com/mini-eggs/MeteorBeat/blob/master/docs/group-logo.jpg?raw=true" data-canonical-src="https://github.com/mini-eggs/MeteorBeat/blob/master/docs/group-logo.jpg?raw=true" width="250" />
+
+
+#### Coding standards
+
 a. Tabs are 3 characters
 
 b. The limit on the length of lines is 72 columns
