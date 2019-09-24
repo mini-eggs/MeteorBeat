@@ -22,7 +22,7 @@ code review and will not impact anyone else's productivity.
 
 ## Start-up/setup
 
-Do setup all you need to do is clone the repository into an easily accessible
+To setup all you need to do is clone the repository into an easily accessible
 location on your machine.
 
 Running `git clone https://github.com/mini-eggs/MeteorBeat` within your $HOME
