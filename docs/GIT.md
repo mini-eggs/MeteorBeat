@@ -46,7 +46,7 @@ The high level is:
 To make an addition or change to MeteorBeat, starting from checking out the
 repository you will: 
 1. Clone the repository: `git clone https://github.com/mini-eggs/MeteorBeat` if
-   you've already clone it, run `git pull` to get the lastest code (be sure you run this
+   you've already clone'd it, run `git pull` to get the lastest code (be sure you run this
    while on the master branch `git status` to check and `git checkout master` to
    switch to it).
 2. Navigate into the repository: `cd MeteorBeat`
