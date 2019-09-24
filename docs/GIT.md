@@ -1,4 +1,4 @@
-# Git + Github quickstarter for use with MeteoBeat.
+# Git + Github quickstarter for use with MeteorBeat.
 
 ## Requirements of usage (rules)
 
