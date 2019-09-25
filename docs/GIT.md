@@ -43,7 +43,7 @@ If you need a reference for common Git commands I recommend:
 
 Rule #2 mentioned code review. It doesn't need to be a formal code review -- just
 that a commit that includes code changes and/or additions to master branch is
-vetted in some way. So what do the process of adding a feature to MeteorBeat
+vetted in some way. So what does the process of adding a feature to MeteorBeat
 look like? I'll outline the steps below and provide the bash commands to
 accomplish each in more details in the next step.
 
