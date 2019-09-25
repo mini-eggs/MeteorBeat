@@ -8,6 +8,9 @@ and how to use Git while developing MeteorBeat.
 Rules: 
 1. Do not use private Git branches. 
 2. Do not push non documentation related changes to master branch.
+3. If you've made a single code change in a given week, have at least one commit
+   merged to master to account for it that week (before midnight on Sunday,
+   arbitrarily chosen).
 
 For rule #1, since our Git repository on Github is public it's not possible for
 us to create private branches currently. Nothing to worry about there. Why are
@@ -20,6 +23,10 @@ For rule #2, this will ensure we'll at all times have a "safe" repository that
 will have a run-able game. I.e. if bad code is committed it can be stopped in
 code review and will not impact anyone else's productivity. 
 
+For rule #3, it's very arbitrary but a good idea if we're all making commits to
+master branch regularly so we don't have any nasty code drifts that will be hard
+to merge down the line. Short lived branches are good.
+
 ## Start-up/setup
 
 To setup all you need to do is clone the repository into an easily accessible
@@ -27,6 +34,10 @@ location on your machine.
 
 Running `git clone https://github.com/mini-eggs/MeteorBeat` within your $HOME
 folder (or wherever you prefer) is sufficient.
+
+If you need a reference for common Git commands I recommend: 
+
+[https://education.github.com/git-cheat-sheet-education.pdf](https://education.github.com/git-cheat-sheet-education.pdf)
 
 ## Workflow
 
