@@ -10,4 +10,4 @@
 8. Braces are used where optional, even if the body contains a single statement.
 9. Opening and closing braces should be on their own lines for both functions and classes.
 10. One space between the comment token and the contents of that comment (i.e. // Here's a comment vs //Here's a comment)
-
+11. Comments should be placed at the top of a class defintion to explain the purpose of the class. A single line comment should be placed one line before a function.
