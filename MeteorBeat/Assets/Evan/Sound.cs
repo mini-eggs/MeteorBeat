@@ -1,18 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Sound : MonoBehaviour
+/* 
+ * BeatBox 
+ * This is a singleton class, notice the private constructor. 
+ * Do not add more constructors!
+ */
+public sealed class BeatBox 
 {
-    // Start is called before the first frame update
-    void Start()
+  private BeatBox() 
+  {
+  }
+
+  public static BeatBox Instance
+  {
+    get 
     {
-        
+      return Nested.instance;
+    }
+  }
+
+  /*
+   * Nested
+   * Not accessable to outside world
+   */
+  private class Nested 
+  {
+    static Nested() 
+    {
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    internal static readonly BeatBox instance = new BeatBox();
+  }
 }
