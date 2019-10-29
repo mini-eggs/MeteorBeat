@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public enum SoundType {
@@ -66,16 +67,16 @@ public sealed class BeatBox
   public void LoadSounds(GameObject gameObject) 
   {
     gameWonClip = gameObject.AddComponent<AudioSource>();
-    gameWonClip.clip = Resources.Load("../Evan/placeholder.mp3") as AudioClip;
+    gameWonClip.clip = Resources.Load("placeholder") as AudioClip;
 
     gameLostClip = gameObject.AddComponent<AudioSource>();
-    gameLostClip.clip = Resources.Load("../Evan/placeholder.mp3") as AudioClip;
+    gameLostClip.clip = Resources.Load("placeholder") as AudioClip;
 
     gameLevelSoundClip = gameObject.AddComponent<AudioSource>();
-    gameLevelSoundClip.clip = Resources.Load("../Evan/soundtrack.mp3") as AudioClip;
+    gameLevelSoundClip.clip = Resources.Load("soundtrack") as AudioClip;
 
     gameCollisionClip = gameObject.AddComponent<AudioSource>();
-    gameCollisionClip.clip = Resources.Load("../Evan/placeholder.mp3") as AudioClip;
+    gameCollisionClip.clip = Resources.Load("placeholder") as AudioClip;
   }
 
   public void PlayGameWon(bool dryrun = false) 
