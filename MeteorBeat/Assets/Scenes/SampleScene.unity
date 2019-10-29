@@ -2537,8 +2537,9 @@ GameObject:
   - component: {fileID: 806423778}
   - component: {fileID: 806423777}
   - component: {fileID: 806423776}
+  - component: {fileID: 806423779}
   m_Layer: 5
-  m_Name: Scrollbar
+  m_Name: LevelProgress
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2651,6 +2652,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806423774}
   m_CullTransparentMesh: 0
+--- !u!114 &806423779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806423774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac451fb1549a1074591baab2829726b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &810507530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3949,6 +3962,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 285395363}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1458194011 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5048798810046908490, guid: 3c25c988c1789bf4ca85da45a87344de,
+    type: 3}
+  m_PrefabInstance: {fileID: 5048798810981856710}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1458194015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458194011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e0dd87b8112ac4b95c0978cfb79ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  endZ: 220
+  myScrollBar: {fileID: 806423774}
 --- !u!1001 &1461372011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6101,7 +6134,7 @@ PrefabInstance:
     - target: {fileID: 5048798810046908491, guid: 3c25c988c1789bf4ca85da45a87344de,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.685996
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5048798810046908491, guid: 3c25c988c1789bf4ca85da45a87344de,
         type: 3}
@@ -6141,6 +6174,11 @@ PrefabInstance:
     - target: {fileID: 5048798810046908491, guid: 3c25c988c1789bf4ca85da45a87344de,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5048798810046908489, guid: 3c25c988c1789bf4ca85da45a87344de,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
