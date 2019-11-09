@@ -4,7 +4,8 @@ using UnityEngine;
 
 class SpacecraftController : MonoBehaviour
 {
-	public float speedForward = 5.0f; //Forward Velocity of craft
+	public float speedForward = 5.0f;
+	
 	public float translationSpeed = 5.0f; //Speeds of movement in x / y directions
 	public Vector2 bounds = new Vector2(10.0f, 6.0f); //Maximun bounds of craft
 	public Vector3 maxTiltDelta = new Vector3(30.0f, 30.0f); //Degrees
@@ -13,7 +14,7 @@ class SpacecraftController : MonoBehaviour
 	public float rollChange = 0.0f; //Roll Rate of Change
 	public float returnToCenter = 0.0f; //Return to 0 of rotation
 	public GameObject childMesh; //Child Object
-
+	public float MaxDistance = 300;
 	protected Vector3 positionDelta;
 	protected Vector3 rotationDelta;
 
@@ -21,7 +22,51 @@ class SpacecraftController : MonoBehaviour
 	protected Vector3 centerTilt = new Vector2();
 	protected Vector3 minTilt = new Vector2();
 	private enum Axis { x = 0, y = 1, z = 2};
-
+	private float startPosition;
+	public float ForwardSpeed
+	{
+		get
+		{
+			return speedForward;
+		}
+		set
+		{
+			speedForward = value;
+		}
+	}//Forward Velocity of craft
+	public float TransitionSpeed
+	{
+		get
+		{
+			return translationSpeed;
+		}
+		set
+		{
+			translationSpeed = value;
+		}
+	}
+	public float PitchChange
+	{
+		get
+		{
+			return pitchChange;
+		}
+		set
+		{
+			pitchChange = value;
+		}
+	}
+	public float RollChange
+	{
+		get
+		{
+			return rollChange;
+		}
+		set
+		{
+			rollChange = value;
+		}
+	}
 	public SpacecraftController()
 	{
 		positionDelta = new Vector3(.0f, .0f, .0f);
@@ -30,13 +75,20 @@ class SpacecraftController : MonoBehaviour
 	public void Start()
 	{
 		CalculateInitialTilt();
+
 		positionDelta.z = speedForward;
+		startPosition = transform.position.z;
 	}
 	public void Update()
 	{
 		PlayerInput();
 		ApplyTranslation();
 		ApplyRotation();
+		if(transform.position.z > MaxDistance)
+		{
+			transform.position = new Vector3(transform.position.x, transform.position.y, startPosition);
+	
+		}
 	}
 	void CalculateInitialTilt()
 	{
@@ -103,6 +155,7 @@ class SpacecraftController : MonoBehaviour
 			positionDelta.y = (bounds[(int)Axis.y] - Mathf.Abs(position.y)) * sign.y;
 		}
 		transform.position += positionDelta;
+		positionDelta = new Vector3(0.0f, 0.0f, speedForward);
 	}
 	/* Applies rotation to the child mesh so not interfere with parent object's position.
 	 * 
