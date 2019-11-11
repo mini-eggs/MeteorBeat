@@ -69,6 +69,8 @@
     <Compile Include="Assets\GalaxyBox2\Scripts\examplescene.cs" />
     <Compile Include="Assets\GalaxyBox2\Scripts\MouseLook.cs" />
     <Compile Include="Assets\Ian\ICustomUIListener.cs" />
+    <Compile Include="Assets\Ian\PauseScript.cs" />
+    <Compile Include="Assets\Ian\ResetLevel.cs" />
     <Compile Include="Assets\Ian\ScoreTextClass.cs" />
     <Compile Include="Assets\Ian\ScrollBarClass.cs" />
     <Compile Include="Assets\Ian\ScrollBarTest.cs" />
