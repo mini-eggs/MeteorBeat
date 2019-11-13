@@ -13,9 +13,14 @@ class SpacecraftController : MonoBehaviour
 	public float pitchChange = 0.0f; //Pitch Rate of Change
 	public float rollChange = 0.0f; //Roll Rate of Change
 	public float returnToCenter = 0.0f; //Return to 0 of rotation
+	/* The heiarchy must be so that camera nor movement is messed up by rotation
+	 * Spacecraft : Gameobject with this script
+	 * -> GameObject : (Empty and is pointed by childMesh)
+	 *		-> Prefab 
+	 *			-> Shapes
+	 */
 	public GameObject childMesh; //Child Object
-	public float MaxDistance = 300;
-	protected Vector3 positionDelta;
+	protected Vector3 positionDelta; //Deltas of each transformation per tick
 	protected Vector3 rotationDelta;
 
 	protected Vector3 maxTilt = new Vector2();
@@ -23,6 +28,7 @@ class SpacecraftController : MonoBehaviour
 	protected Vector3 minTilt = new Vector2();
 	private enum Axis { x = 0, y = 1, z = 2};
 	private float startPosition;
+	/* Accessors */
 	public float ForwardSpeed
 	{
 		get
@@ -67,6 +73,8 @@ class SpacecraftController : MonoBehaviour
 			rollChange = value;
 		}
 	}
+
+
 	public SpacecraftController()
 	{
 		positionDelta = new Vector3(.0f, .0f, .0f);
@@ -84,12 +92,10 @@ class SpacecraftController : MonoBehaviour
 		PlayerInput();
 		ApplyTranslation();
 		ApplyRotation();
-		if(transform.position.z > MaxDistance)
-		{
-			transform.position = new Vector3(transform.position.x, transform.position.y, startPosition);
-	
-		}
 	}
+	/* 
+	 * This is half defunct
+	 */
 	void CalculateInitialTilt()
 	{
 		centerTilt = childMesh.transform.rotation.eulerAngles;
@@ -158,7 +164,7 @@ class SpacecraftController : MonoBehaviour
 		positionDelta = new Vector3(0.0f, 0.0f, speedForward);
 	}
 	/* Applies rotation to the child mesh so not interfere with parent object's position.
-	 * 
+	 * Half of the function is removed due to issues with the spacecraft returning to level flight
 	 */
 	protected void ApplyRotation()
 	{
@@ -179,6 +185,7 @@ class SpacecraftController : MonoBehaviour
 		childMesh.transform.Rotate(rotationDelta);
 		rotationDelta = new Vector3(0.0f, 0.0f, 0.0f);
 	}
+	/* Compartimentalization of Movement function */
 	void HorizontalMotion(float input, Vector2 sign)
 	{
 		var childRotation = childMesh.transform.rotation.eulerAngles;
