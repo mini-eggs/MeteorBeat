@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -6,7 +8,7 @@ using UnityEngine;
  *
  * Usage:
  *   var p = ParticleFactory.Get(ParticleType.Collision);
- *   p.SetPosition(new Vector3(1, 2, 3));
+ *   p.SetEffect(new Vector3(1, 2, 3));
  *   p.Run();
  *
  */
@@ -17,34 +19,53 @@ public enum ParticleType
   Direction
 }
 
-public abstract class Particle
+public abstract class Particle : MonoBehaviour
 {
-    public abstract void SetPosition(Vector3 position);
-    public abstract void Run();
+    public abstract void SetEffect(Transform e);
+    public abstract void Run(Vector3 position);
 }
 
 class CollisionParticle : Particle
 {
+
   private Vector3 pos;
-  public override void SetPosition(Vector3 next) 
-  {
-    pos = next;
-  }
-  public override void Run() 
+
+  public override void SetEffect(Transform e) 
   {
   }
+
+  public override void Run(Vector3 next)
+  {
+  }
+
 }
 
 class DirectionParticle : Particle
 {
-  private Vector3 pos;
-  public override void SetPosition(Vector3 next) 
+
+  private Transform effect;
+  private Transform alive;
+
+  private static Vector3 initialPosition = new Vector3(0, 0, 0);
+  
+  public override void SetEffect(Transform e) 
   {
-    pos = next;
+    effect = e;
+    alive = Instantiate(effect, initialPosition, Quaternion.identity);
   }
-  public override void Run() 
+  
+  public override void Run(Vector3 next) 
   {
+    alive.position = toShip(next);
   }
+
+  public Vector3 toShip(Vector3 next) 
+  {
+    next.y -= 1.75f;
+    next.z -= 2f;
+    return next;
+  }
+  
 }
 
 public static class ParticleFactory
