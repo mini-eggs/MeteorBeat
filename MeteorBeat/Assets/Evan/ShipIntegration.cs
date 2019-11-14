@@ -49,11 +49,11 @@ public class ShipIntegration : MonoBehaviour
     {
       particle.Run(spaceship.position);
       
-      // // testing
-      // if (spaceship.position.z > 100 && isPlaying)
-      // {
-      //   collideWithAsteroid();
-      // }
+      // testing
+      if (spaceship.position.z > 100 && isPlaying)
+      {
+        collideWithAsteroid();
+      }
     }
 
 
