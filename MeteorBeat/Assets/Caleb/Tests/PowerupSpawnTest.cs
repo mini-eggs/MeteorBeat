@@ -1,40 +1,43 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
-using UnityEditor; 
-
-
+/* Caleb Seely
+ * Metero Beat Tests
+ * 11/2/19
+ */
 namespace Tests
 {
     public class PowerupSpawnTest 
     {
-        
-        // A Test behaves as an ordinary method
         [Test]
-        public void PowerupSpawnTestSimplePasses()
+        public void PowerupSpawned()
         {
-            //var s = Powerup.Instance;
-            // Use the Assert class to test conditions
-            Debug.Log("Hello World");
+            Vector3 PowerupPosition = GameObject.Find("Powerup").transform.position;
+            Assert.IsNotNull(PowerupPosition);
+            //Debug.Log("Powerup did not spawn");
         }
 
-        // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-        // `yield return null;` to skip a frame.
-        [UnityTest]
-        public IEnumerator PowerupSpawnToScreenTest()
+        /* Boundry Test
+         * Checks if Powerup object was spawned and placed
+         * in a reachable location for the player.
+         */
+        [Test]
+        public void PowerupSpawnAheadofPlayerTest()
         {
-            Debug.Log("Powerup has been found on screen if this passes");
-            Object PrefabSpawn = Resources.Load("Assets/Health");
-            
-            var PowerupPrefabFind = GameObject.FindWithTag("Health");
-
-            Object PowerupPrefab = PrefabUtility.GetCorrespondingObjectFromOriginalSource(PowerupPrefabFind);
-            
-            Assert.AreEqual(PrefabSpawn, PowerupPrefab);
-
-            //Debug.Log("Name: " + PrefabSpawn.name);
+            Vector3 PowerupPosition = GameObject.Find("Powerup").transform.position;
+            Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;
+            Assert.IsTrue(PowerupPosition.z > SpaceshipPosition.z);
+            //Debug.Log("Powerup not reachable by the player.");
+        }
+        
+        // Expected to fail
+        [Test]
+        public IEnumerator PowerupSpawnAheadofPlayerFAILTest()
+        {
+            Vector3 PowerupPosition = GameObject.Find("Powerup").transform.position;
+            Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;
+            Debug.Log("Powerup not reachable by the player. \n This should always fail!");
+            Assert.IsTrue(PowerupPosition.z < SpaceshipPosition.z);
             return null;
         }
     }
