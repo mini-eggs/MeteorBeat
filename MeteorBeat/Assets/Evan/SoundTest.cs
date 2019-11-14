@@ -34,7 +34,6 @@ namespace Tests
         public void PlaySoundTrackAndGameWonSameTime() 
         {
           var s = BeatBox.Instance;
-
           s.PlayLevelSoundTrack();
 
           Assert.AreEqual(1, s.currentlyPlaying.Count);
