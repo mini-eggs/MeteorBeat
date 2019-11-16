@@ -99,7 +99,7 @@ public class SoundClip : IEquatable<SoundClip>
  * This is a singleton class, notice the private constructor. 
  * Do not add more constructors!
  */
-public sealed class BeatBox 
+public sealed class BeatBox : ScriptableObject
 {
   // sounds
   private AudioSource gameWonClip;
@@ -126,17 +126,22 @@ public sealed class BeatBox
       return;
     }
 
+    var winnings = new string[5]{"perfect","impressive","holyshit","unstoppable","wickedsick"};
+    var winning = winnings[UnityEngine.Random.Range(0, winnings.Length)];
     gameWonClip = gameObject.AddComponent<AudioSource>();
-    gameWonClip.clip = Resources.Load("placeholder") as AudioClip;
+    gameWonClip.clip = Resources.Load(winning) as AudioClip;
 
+    var losings = new string[4]{"death1","death2","death3","death4"};
+    var losing = losings[UnityEngine.Random.Range(0, losings.Length)];
     gameLostClip = gameObject.AddComponent<AudioSource>();
-    gameLostClip.clip = Resources.Load("placeholder") as AudioClip;
+    gameLostClip.clip = Resources.Load(losing) as AudioClip;
 
     gameLevelSoundClip = gameObject.AddComponent<AudioSource>();
     gameLevelSoundClip.clip = Resources.Load("soundtrack") as AudioClip;
 
+    // Is this really needed?
     gameCollisionClip = gameObject.AddComponent<AudioSource>();
-    gameCollisionClip.clip = Resources.Load("placeholder") as AudioClip;
+    gameCollisionClip.clip = Resources.Load("explosion") as AudioClip;
 
     hasLoaded = true;
   }
@@ -240,6 +245,6 @@ public sealed class BeatBox
   private class Nested 
   {
     static Nested() {}
-    internal static readonly BeatBox instance = new BeatBox();
+    internal static readonly BeatBox instance = ScriptableObject.CreateInstance<BeatBox>();
   }
 }

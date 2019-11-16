@@ -49,11 +49,11 @@ public class ShipIntegration : MonoBehaviour
     {
       particle.Run(spaceship.position);
       
-      // testing
-      if (spaceship.position.z > 100 && isPlaying)
-      {
-        collideWithAsteroid();
-      }
+      // // testing
+      // if (spaceship.position.z > 50 && isPlaying)
+      // {
+      //   collideWithAsteroid();
+      // }
     }
 
 
@@ -95,10 +95,14 @@ public class ShipIntegration : MonoBehaviour
       var s = BeatBox.Instance;
       s.LoadSounds(this.gameObject);
       s.PlayGameLost();
+      s.PlayCollision();
 
-      // Hide spacehip.
-      GetComponent<Renderer>().enabled = false; // Hide ship from user view.
-
+      // Hide spacehip by disabling all children renders.
+      Renderer[] childs = this.gameObject.GetComponentsInChildren<Renderer>();
+      foreach (Renderer item in childs)
+      {
+        item.enabled = false;
+      }
     }
 
 }
