@@ -11,12 +11,11 @@ public class keyControls : MonoBehaviour
     void Start()
     {
         spaceship = GetComponent<Rigidbody>();
-        spaceship.velocity = Vector3.forward * flyingSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        spaceship.velocity = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, Input.GetAxis("Vertical") * movementSpeed, spaceship.velocity.z);
+        spaceship.velocity = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, Input.GetAxis("Vertical") * movementSpeed, flyingSpeed);
     }
 }
