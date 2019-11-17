@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class HealthTextClass : MonoBehaviour, ICustomUIListener
 {
-   Text myHealthText;
+   Image myHealth;
    // Start is called before the first frame update
    void Start()
    {
-      myHealthText = GetComponent<Text>();
+      myHealth = GetComponent<Image>();
    }
 
    public void UpdateUIElement(float info)
    {
-      myHealthText.text = "Score: " + info.ToString();
+      myHealth.fillAmount = info;
    }
 }
