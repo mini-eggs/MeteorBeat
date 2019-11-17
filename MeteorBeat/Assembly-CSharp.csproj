@@ -58,9 +58,14 @@
      <Compile Include="Assets\Asteroids Pack\Assets\Scripts\RandomRotator.cs" />
      <Compile Include="Assets\Caleb\GetRand.cs" />
      <Compile Include="Assets\Caleb\Powerup.cs" />
+     <Compile Include="Assets\Cory\cameraBase.cs" />
+     <Compile Include="Assets\Cory\cameraFactory.cs" />
+     <Compile Include="Assets\Cory\cameraWrapper.cs" />
      <Compile Include="Assets\Cory\keyControls.cs" />
+     <Compile Include="Assets\Cory\OverShoulderCamera.cs" />
      <Compile Include="Assets\Cory\shipcollision.cs" />
      <Compile Include="Assets\Cory\SpacecraftController.cs" />
+     <Compile Include="Assets\Cory\ThirdPersonCamera.cs" />
      <Compile Include="Assets\Cosette\GalaxyBox2\Scripts\examplescene.cs" />
      <Compile Include="Assets\Cosette\GalaxyBox2\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Cosette\Obstacles.cs" />
