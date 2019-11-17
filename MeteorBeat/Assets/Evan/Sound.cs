@@ -20,7 +20,8 @@ using UnityEngine;
 public enum SoundType {
   GameComplete,
   GameLevelSound,
-  GameCollision
+  GameCollision,
+  GamePointGain,
 }
 
 /*
@@ -67,6 +68,7 @@ public class SoundClip : IEquatable<SoundClip>
   // Container method for AudioSource.
   public void Stop() 
   {
+    if (sound == null) return; // For end of game/restart don't attempt to play old sounds.
     sound.Stop();
   }
 
@@ -102,6 +104,7 @@ public class SoundClip : IEquatable<SoundClip>
 public sealed class BeatBox : ScriptableObject
 {
   // sounds
+  private List<AudioSource> gamePointGainClips;
   private AudioSource gameWonClip;
   private AudioSource gameLostClip;
   private AudioSource gameLevelSoundClip;
@@ -117,6 +120,11 @@ public sealed class BeatBox : ScriptableObject
   {
     currentlyPlaying = new List<SoundClip>();
     hasLoaded = false;
+  }
+
+  public bool IsPlaying() 
+  {
+    return gameLevelSoundClip != null && gameLevelSoundClip.isPlaying && hasLoaded;
   }
 
   public void LoadSounds(GameObject gameObject) 
@@ -143,7 +151,29 @@ public sealed class BeatBox : ScriptableObject
     gameCollisionClip = gameObject.AddComponent<AudioSource>();
     gameCollisionClip.clip = Resources.Load("explosion") as AudioClip;
 
+
+    gamePointGainClips = new List<AudioSource>();
+    // Note: point sounds same as game winning sounds.
+    foreach (string sound in winnings)
+    {
+      var item = gameObject.AddComponent<AudioSource>();
+      item.clip = Resources.Load(sound) as AudioClip;
+      gamePointGainClips.Add(item);
+    }
+
     hasLoaded = true;
+  }
+
+  /* 
+   * PlayPointGain
+   *
+   * Play the game winning jingle 
+   * iff a sound of SoundType#GameComplete is not already playing.
+   */
+  public void PlayPointGain(bool dryrun = false) 
+  {
+    var sound = gamePointGainClips[UnityEngine.Random.Range(0, gamePointGainClips.Count)];
+    currentlyPlaying.Add(new SoundClip(SoundType.GamePointGain, sound, dryrun));
   }
 
   /* 
@@ -157,8 +187,12 @@ public sealed class BeatBox : ScriptableObject
     // can't play multiple game winning or losing sounds at once
     if ( !currentlyPlaying.Contains(new SoundClip(SoundType.GameComplete)) )
     {
+      ClearAll(); // Stop playing level soundtrack.
       currentlyPlaying.Add(new SoundClip(SoundType.GameComplete, gameWonClip, dryrun));
     }
+
+    // We need to ensure we reload sounds on level restart.
+    hasLoaded = false; 
   }
 
   /* 
@@ -176,6 +210,9 @@ public sealed class BeatBox : ScriptableObject
       ClearAll(); // Stop playing level soundtrack.
       currentlyPlaying.Add(new SoundClip(SoundType.GameComplete, gameLostClip, dryrun));
     }
+
+    // We need to ensure we reload sounds on level restart.
+    hasLoaded = false; 
   }
 
   /* 

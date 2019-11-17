@@ -9,22 +9,30 @@ public class LevelGeneration : MonoBehaviour
     public float spawnDistance;
     public int meteorSpawnRate;
     public float ringSpawnTime;
+    
+    // Used for end of level semantics. Stop removeing items from scene when
+    // game complete.
+    private bool isActive;
+
     // Start is called before the first frame update
     void Start()
     {
+        isActive = true;
         StartCoroutine("MeteorSpawner");
         StartCoroutine("RingSpawner");
         StartCoroutine("LevelScript");
     }
 
     IEnumerator MeteorSpawner(){
-        while(true){
+        while(isActive){
             float sideDistance = 70;
             for(int i = 0; i < meteorSpawnRate; i++){
                 GameObject currentAsteroid = Instantiate(asteroid, this.transform.position + new Vector3(Random.Range(-sideDistance, sideDistance), Random.Range(-sideDistance, sideDistance), spawnDistance * this.GetComponent<keyControls>().flyingSpeed), Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360)));
+                currentAsteroid.name = "Asteroid"; //  for OnCollisionEnter in other scripts.
+                currentAsteroid.AddComponent<AsteroidIntegration>();
                 StartCoroutine(MeteorScale(currentAsteroid));
                 StartCoroutine(MeteorSpin(currentAsteroid));
-                Destroy(currentAsteroid, 5);
+                // Destroy(currentAsteroid, 5); // TODO: Conditionally run this `Destroy` call
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -54,10 +62,10 @@ public class LevelGeneration : MonoBehaviour
     }
 
     IEnumerator RingSpawner(){
-        while(true){
+        while(isActive){
             float sideDistance = 20;
             GameObject currentRing = Instantiate(ring, this.transform.position + new Vector3(Random.Range(-sideDistance, sideDistance), Random.Range(-sideDistance, sideDistance), spawnDistance * this.GetComponent<keyControls>().flyingSpeed), Quaternion.identity);
-            Destroy(currentRing, 5);
+            // Destroy(currentRing, 5); // TODO: Conditionally run this `Destroy` call
             yield return new WaitForSeconds(ringSpawnTime);
         }
     }
@@ -130,9 +138,17 @@ public class LevelGeneration : MonoBehaviour
         yield return null;
     }
 
-    // Update is called once per frame
-    void Update()
+    /* 
+     * StopCoroutines
+     *
+     * Used for end of level semantics.
+     * Stop disappearing asteroid and showing more!
+     */
+    public void StopCoroutines() 
     {
-
+        isActive = false;
+        StartCoroutine("MeteorSpawner");
+        StartCoroutine("RingSpawner");
+        StartCoroutine("LevelScript");
     }
 }
