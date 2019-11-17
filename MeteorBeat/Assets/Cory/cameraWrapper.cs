@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,10 +16,15 @@ public class cameraWrapper : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(cameraType == CameraType.thirdPerson)
+		switch(cameraType)
 		{
-			var camera = CameraFactory.ThirdPersonFactory(gameObject, target);
-		}
+			case CameraType.thirdPerson:
+				var camera = CameraFactory.ThirdPersonFactory(gameObject, target);
+				break;
+			case CameraType.overTheShoulder:
+				var shoulderCamera = CameraFactory.OverShoulderFactory(gameObject, target);
+				break;
+		};
     }
 
     // Update is called once per frame
