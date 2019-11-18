@@ -73,6 +73,7 @@
      <Compile Include="Assets\Evan\BindingTest.cs" />
      <Compile Include="Assets\Evan\CameraIntegration.cs" />
      <Compile Include="Assets\Evan\LevelIntegration.cs" />
+     <Compile Include="Assets\Evan\obj\Debug\netcoreapp2.2\Evan.AssemblyInfo.cs" />
      <Compile Include="Assets\Evan\Particle.cs" />
      <Compile Include="Assets\Evan\RingIntegration.cs" />
      <Compile Include="Assets\Evan\ShipIntegration.cs" />
