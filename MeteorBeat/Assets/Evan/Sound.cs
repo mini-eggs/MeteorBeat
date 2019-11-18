@@ -73,6 +73,18 @@ public class SoundClip : IEquatable<SoundClip>
    }
 
    // Container method for AudioSource.
+   public void Pause()
+   {
+      sound.Pause();
+   }
+
+   // Container method for AudioSource.
+   public void Unpause()
+   {
+      sound.UnPause();
+   }
+
+   // Container method for AudioSource.
    public void Stop()
    {
       // For end of game/restart don't attempt to play old sounds.
@@ -122,16 +134,27 @@ public sealed class BeatBox : ScriptableObject
    // to reload music files
    private bool hasLoaded;
 
+   // Used so we don't accidently play the game winning sound when game
+   // gets paused.
+   private bool isPaused;
+
    public List<SoundClip> currentlyPlaying;
 
    private BeatBox()
    {
       currentlyPlaying = new List<SoundClip>();
       hasLoaded = false;
+      isPaused = false;
    }
 
    public bool IsPlaying()
    {
+      // Don't play game winning sound on pause!
+      if (isPaused) 
+      {
+         return true;
+      }
+
       return (gameLevelSoundClip != null &&
              gameLevelSoundClip.isPlaying &&
              hasLoaded);
@@ -266,6 +289,48 @@ public sealed class BeatBox : ScriptableObject
                   SoundType.GameLevelSound,
                   gameLevelSoundClip,
                   dryrun));
+      }
+   }
+
+   /* 
+    * PauseLevelSoundTrack
+    *
+    * Temp stop level soundtrack.
+    */
+   public void PauseLevelSoundTrack()
+   {
+      var item = new SoundClip(SoundType.GameLevelSound);
+      if (currentlyPlaying.Contains(item))
+      {
+         currentlyPlaying.ForEach((SoundClip clip) =>
+         {
+            if (clip.Equals(item))
+            {
+               clip.Pause();
+               isPaused = true;
+            }
+         });
+      }
+   }
+
+   /* 
+    * UnpauseLevelSoundTrack
+    *
+    * Play level soundtrack again.
+    */
+   public void UnpauseLevelSoundTrack()
+   {
+      var item = new SoundClip(SoundType.GameLevelSound);
+      if (currentlyPlaying.Contains(item))
+      {
+         currentlyPlaying.ForEach((SoundClip clip) =>
+         {
+            if (clip.Equals(item))
+            {
+               clip.Unpause();
+               isPaused = false;
+            }
+         });
       }
    }
 

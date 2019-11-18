@@ -84,10 +84,12 @@
      <Compile Include="Assets\Ian\ICustomUIListener.cs" />
      <Compile Include="Assets\Ian\LevelSelectScreen.cs" />
      <Compile Include="Assets\Ian\PauseScript.cs" />
+     <Compile Include="Assets\Ian\QuitScript.cs" />
      <Compile Include="Assets\Ian\ResetLevel.cs" />
      <Compile Include="Assets\Ian\ScoreTextClass.cs" />
      <Compile Include="Assets\Ian\ScrollBarClass.cs" />
      <Compile Include="Assets\Ian\ScrollBarTest.cs" />
+     <Compile Include="Assets\Ian\TitleScreenClass.cs" />
      <Compile Include="Assets\Ian\UpdateHealth.cs" />
      <Compile Include="Assets\Ian\UpdateScore.cs" />
      <Compile Include="Assets\Ian\UpdateScrollBar.cs" />
