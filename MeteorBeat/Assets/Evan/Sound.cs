@@ -97,7 +97,7 @@ public class SoundClip : IEquatable<SoundClip>
    public void Stop()
    {
       // For end of game/restart don't attempt to play old sounds.
-      if (sound == null)
+      if (sound != null)
       {
          sound.Stop();
       }
