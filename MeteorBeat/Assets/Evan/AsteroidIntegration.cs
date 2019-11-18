@@ -16,6 +16,21 @@ public class AsteroidIntegration : MonoBehaviour
     * the health says 5 however with the if statement it will be 6 lives
     */
    static int health = 5;
+
+   // The ship itself.
+   private Rigidbody spaceship;
+
+   /* 
+    * Start
+    *
+    * Setup spaceship for use in `OnTriggerEnter`
+    */
+   void Start() 
+   {
+      spaceship = GameObject.FindGameObjectWithTag("Player")
+         .GetComponent<Rigidbody>();
+   }
+
    /* 
     * OnTriggerEnter
     *
@@ -28,6 +43,13 @@ public class AsteroidIntegration : MonoBehaviour
       if (health > 0)
       {
          health--;
+
+         // Create explosion particles while travelling through
+         // asteroid.
+         ParticleFactory.Get(ParticleType.Collision).Run(spaceship);
+
+         // Play game over sounds.
+         BeatBox.Instance.PlayCollision();
       }
       else
       {

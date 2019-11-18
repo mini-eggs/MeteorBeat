@@ -37,9 +37,19 @@ public class BaseParticle : ScriptableObject
    // The prefab for the particle particle effect. See factory below.
    public GameObject prefab;
 
+   // For testing use. Makes testing a h*ll of a lot easier.
+   protected ILogger log = new NoOpLog();
+
+   // For testing use. Allow setting custom loggers.
+   public void SetLogger(ILogger nextLogger)
+   {
+      log = nextLogger;
+   }
+
    // Load in prefab resource.
    public void Load(string prefabName)
    {
+      log.Run("BaseParticle#Load");
       prefab = Resources.Load(prefabName) as GameObject;
    }
 
@@ -51,6 +61,7 @@ public class BaseParticle : ScriptableObject
     */
    public virtual List<GameObject> CurrentGameObjects()
    {
+      log.Run("BaseParticle#CurrentGameObjects");
       var list = new List<GameObject>();
       list.Add(prefab);
       return list;
@@ -79,10 +90,12 @@ class CollisionParticle : Particle
 
    public override void Run(Rigidbody parent)
    {
+      log.Run("CollisionParticle#Run");
+
       // Instantiate and set position.
       var item = Instantiate(
             prefab,
-            new Vector3(0, 0, 0),
+            Vector3.zero,
             Quaternion.identity);
 
       item.transform.position = parent.transform.position;
@@ -114,6 +127,8 @@ class DirectionParticle : Particle
     */
    public override void Run(Rigidbody parent)
    {
+      log.Run("DirectionParticle#Run");
+
       // Load prefab in if not available.
       if (prefab == null)
       {
@@ -165,6 +180,7 @@ class DirectionParticle : Particle
     */
    new public virtual List<GameObject> CurrentGameObjects()
    {
+      log.Run("DirectionParticle#CurrentGameObjects");
       var list = new List<GameObject>();
       list.Add(left);
       list.Add(right);
@@ -209,4 +225,34 @@ public static class ParticleFactory
             throw new Exception("not an enum type of ParticleType");
       }
    }
+   
+   /* 
+    * Particle#Get
+    *
+    * Given a ParticleType enum return a Particle instance or throw 
+    * exception invalid argument.
+    */
+   public static Particle Get(
+         ParticleType type,
+         ILogger logger)
+   {
+      switch (type)
+      {
+         case ParticleType.Collision:
+            var col = ScriptableObject
+               .CreateInstance<CollisionParticle>();
+            col.SetLogger(logger);
+            col.Load("explosion_prefab");
+            return col;
+         case ParticleType.Direction:
+            var dir = ScriptableObject
+               .CreateInstance<DirectionParticle>();
+            dir.SetLogger(logger);
+            dir.Load("thruster_prefab");
+            return dir;
+         default:
+            throw new Exception("not an enum type of ParticleType");
+      }
+   }
+
 }

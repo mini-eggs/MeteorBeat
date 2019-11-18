@@ -69,27 +69,38 @@ public class SoundClip : IEquatable<SoundClip>
    // Container method for AudioSource.
    public void Play()
    {
-      sound.Play();
+      if (sound != null)
+      {
+         sound.Play();
+      }
    }
 
    // Container method for AudioSource.
    public void Pause()
    {
-      sound.Pause();
+      if (sound != null)
+      {
+         sound.Pause();
+      }
    }
 
    // Container method for AudioSource.
    public void Unpause()
    {
-      sound.UnPause();
+      if (sound != null)
+      {
+         sound.UnPause();
+      }
    }
 
    // Container method for AudioSource.
    public void Stop()
    {
       // For end of game/restart don't attempt to play old sounds.
-      if (sound == null) return;
-      sound.Stop();
+      if (sound == null)
+      {
+         sound.Stop();
+      }
    }
 
    /*
@@ -358,9 +369,13 @@ public sealed class BeatBox : ScriptableObject
    {
       currentlyPlaying.ForEach((SoundClip item) =>
       {
-         item.Stop();
+         if (item != null) // Fixes unit test crash
+         {
+            item.Stop();
+         }
       });
       currentlyPlaying.Clear();
+      currentlyPlaying = new List<SoundClip>();
    }
 
    /* 

@@ -25,6 +25,7 @@ public class ShipIntegration : MonoBehaviour
     */
    void Start()
    {
+      // Grab spaceship from attached game object.
       spaceship = GetComponent<Rigidbody>();
 
       // Create ship thruster particles.
