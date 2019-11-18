@@ -9,6 +9,7 @@ using UnityEngine;
  */
 public class RingIntegration: MonoBehaviour
 {
+  int score = 0;
   /*
    * OnTriggerEnter
    *
@@ -16,5 +17,6 @@ public class RingIntegration: MonoBehaviour
    */
   void OnTriggerEnter() {
     BeatBox.Instance.PlayPointGain();
+    score +=100;
   }
 }
