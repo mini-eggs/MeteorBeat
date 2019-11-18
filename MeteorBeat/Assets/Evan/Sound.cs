@@ -11,10 +11,14 @@ using UnityEngine;
  *
  * Usage: 
  *   var s = BeatBox.Instance;
- *   s.LoadSounds(yourGameObject);
+ *   s.LoadSounds(yourGameObject); // Only needs to be done at top level once.
  *   s.PlayLevelSoundTrack();
+ *   -or-
  *   s.PlayGameLost();
+ *   -or-
  *   s.PlayGameWon();
+ *   -or-
+ *   s.PlayPointGain();
  */
 
 public enum SoundType {

@@ -8,7 +8,8 @@ using UnityEngine;
  *
  * Usage:
  *   ParticleFactory.Get(ParticleType.Collision).Run(someRigidBody);
- *
+ *   -or-
+ *   ParticleFactory.Get(ParticleType.Direction).Run(someRigidBody);
  */
 
 /*
@@ -40,6 +41,19 @@ public class BaseParticle : ScriptableObject
   public void Load(string prefabName)
   {
     prefab = Resources.Load(prefabName) as GameObject;
+  }
+
+  /*
+   * CurrentPrefabs
+   *
+   * Get all `GameObject`s in use for class instance.
+   * Return the count accurate to their usage.
+   */
+  public virtual List<GameObject> CurrentGameObjects()
+  {
+    var list = new List<GameObject>();
+    list.Add(prefab);
+    return list;
   }
 
 }
@@ -137,6 +151,21 @@ class DirectionParticle : Particle
     right.transform.position = new Vector3(pos.x + 0.6f,
                                            pos.y - 0.5f,
                                            pos.z - 4.659f);
+  }
+
+  /**
+   * CurrentPrefabs
+   *
+   * Get all `GameObject`s in use for class instance.
+   * Return the count accurate to their usage.
+   */
+  public virtual List<GameObject> CurrentGameObjects()
+  {
+    var list = new List<GameObject>();
+    list.Add(left);
+    list.Add(right);
+    list.Add(center);
+    return list;
   }
 
 }
