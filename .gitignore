@@ -54,3 +54,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# dotnet format
+obj
+obj.meta
+bin
+bin.meta
