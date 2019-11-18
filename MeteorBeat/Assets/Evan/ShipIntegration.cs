@@ -80,7 +80,8 @@ public class ShipIntegration : MonoBehaviour
     */
    public void UserHasWon()
    {
-      // Lock astoid creation states. Do NOT let them disappear from user view.
+      // Lock astoid creation states. Do NOT let them disappear from 
+      // user view.
       GameObject.FindGameObjectWithTag("Player")
          .GetComponent<LevelGeneration>()
          .StopCoroutines();
