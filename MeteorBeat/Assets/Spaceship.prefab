@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flyingSpeed: 20
   movementSpeed: 40
+  shipModel: {fileID: 0}
 --- !u!54 &5048798810046908488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14759,7 +14760,7 @@ GameObject:
   - component: {fileID: 9219705446880306751}
   m_Layer: 0
   m_Name: Ship
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

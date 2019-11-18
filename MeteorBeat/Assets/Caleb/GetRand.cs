@@ -16,7 +16,7 @@ public class GetRandom : MonoBehaviour
      */
     public static Vector3 NewCoordinates()
     {
-        int max = 10;
+        int max = 90;
         int x = 0, y = 0, z = 0;
         x = GetRand(max);
         y = GetRand(max);
