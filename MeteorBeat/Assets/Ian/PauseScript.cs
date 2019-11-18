@@ -18,6 +18,7 @@ public class PauseScript : MonoBehaviour
          restartButton.gameObject.SetActive(true);
          quitButton.gameObject.SetActive(true);
          Time.timeScale = 0;
+         BeatBox.Instance.PauseLevelSoundTrack();
       }
       else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
       {
@@ -25,6 +26,7 @@ public class PauseScript : MonoBehaviour
          restartButton.gameObject.SetActive(false);
          quitButton.gameObject.SetActive(false);
          Time.timeScale = 1;
+         BeatBox.Instance.UnpauseLevelSoundTrack();
       }
    }
 }
