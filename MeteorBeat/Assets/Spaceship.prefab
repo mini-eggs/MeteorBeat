@@ -13,9 +13,14 @@ GameObject:
   - component: {fileID: 5048798810046908488}
   - component: {fileID: 2656294912041995710}
   - component: {fileID: 2656294912041995708}
+  - component: {fileID: 1237204365}
+  - component: {fileID: 1237204366}
+  - component: {fileID: 1237204368}
+  - component: {fileID: 1237204369}
+  - component: {fileID: 1237204367}
   m_Layer: 0
   m_Name: Spaceship
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,8 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594d8bdd5b9718141957015fffb8848a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingSpeed: 20
-  movementSpeed: 40
+  flyingSpeed: 15
+  movementSpeed: 20
+  shipModel: {fileID: 9221230531062774788}
 --- !u!54 &5048798810046908488
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -96,6 +102,77 @@ MonoBehaviour:
   pausePlane: {fileID: 7119594949433406580}
   restartButton: {fileID: 0}
   quitButton: {fileID: 0}
+--- !u!114 &1237204365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88469ac3031ff68aa28a5a38fd3cf0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1237204366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6e070f31db78cc3999c68b290dce04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleShipAsteroidCollision: {fileID: 400008, guid: f3613b78354895b469b7da1f0a90e686,
+    type: 3}
+  ParticleShipThruster: {fileID: 0}
+--- !u!114 &1237204368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d6210da143b4284396fd08c41fcf2a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ring: {fileID: 3426361908656828886, guid: 68f88d6ed7e4428499886231a64f2bc5, type: 3}
+  asteroid: {fileID: 8595020936041566502, guid: 36cecd910e201d34e852037b195188a3,
+    type: 3}
+  spawnDistance: 3
+  meteorSpawnRate: 3
+  ringSpawnTime: 2
+--- !u!114 &1237204369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2641b69786e37641b0a1f8cd536ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHealthText: {fileID: 0}
+--- !u!114 &1237204367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab2f5370f08c43439cfd5115bbd7c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 0}
 --- !u!1 &5048798811394529463
 GameObject:
   m_ObjectHideFlags: 0
@@ -107,6 +184,7 @@ GameObject:
   - component: {fileID: 5048798811394529458}
   - component: {fileID: 5048798811394529461}
   - component: {fileID: 5048798811394529460}
+  - component: {fileID: 1709842081}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -180,6 +258,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5048798811394529463}
   m_Enabled: 1
+--- !u!114 &1709842081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798811394529463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d3a331509b6e166b4e07112c95e288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5885491578843926682
 GameObject:
   m_ObjectHideFlags: 0
@@ -14755,7 +14845,6 @@ GameObject:
   - component: {fileID: 9221230531062774788}
   - component: {fileID: 9188018304761391682}
   - component: {fileID: 9197371132601057678}
-  - component: {fileID: 9219705446880306750}
   - component: {fileID: 9219705446880306751}
   m_Layer: 0
   m_Name: Ship
@@ -14828,20 +14917,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &9219705446880306750
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9219705446880306748}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.79
-  m_Height: 10.14
-  m_Direction: 2
-  m_Center: {x: 0, y: -0.0000007748604, z: 0}
 --- !u!65 &9219705446880306751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14853,5 +14928,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.4, y: 1.87, z: 4.54}
-  m_Center: {x: 0, y: -0.3, z: -2.08}
+  m_Size: {x: 8.4, y: 1.87, z: 6.29}
+  m_Center: {x: 0, y: -0.3, z: -0.61}
