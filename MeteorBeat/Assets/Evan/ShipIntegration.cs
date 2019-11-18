@@ -17,14 +17,6 @@ public class ShipIntegration : MonoBehaviour
     // The ship's thrusters.
     private Particle thrusters; 
 
-    // // Particle to display when ship has collided w/ an asteroid.
-    // // Set within Unity Editor.
-    // public Transform particleShipAsteroidCollision;
-
-    // // Particle effects for ship thruster.
-    // // Set within Unity Editor.
-    // public GameObject ParticleShipThruster;
-
     /*
      * Start
      *
