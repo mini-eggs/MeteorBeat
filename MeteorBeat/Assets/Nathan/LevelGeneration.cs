@@ -32,7 +32,7 @@ public class LevelGeneration : MonoBehaviour
                 currentAsteroid.AddComponent<AsteroidIntegration>();
                 StartCoroutine(MeteorScale(currentAsteroid));
                 StartCoroutine(MeteorSpin(currentAsteroid));
-                // Destroy(currentAsteroid, 5); // TODO: Conditionally run this `Destroy` call
+                Destroy(currentAsteroid, 5);
             }
             yield return new WaitForSeconds(0.1f);
         }
@@ -65,7 +65,7 @@ public class LevelGeneration : MonoBehaviour
         while(isActive){
             float sideDistance = 20;
             GameObject currentRing = Instantiate(ring, this.transform.position + new Vector3(Random.Range(-sideDistance, sideDistance), Random.Range(-sideDistance, sideDistance), spawnDistance * this.GetComponent<keyControls>().flyingSpeed), Quaternion.identity);
-            // Destroy(currentRing, 5); // TODO: Conditionally run this `Destroy` call
+            Destroy(currentRing, 5);
             yield return new WaitForSeconds(ringSpawnTime);
         }
     }
