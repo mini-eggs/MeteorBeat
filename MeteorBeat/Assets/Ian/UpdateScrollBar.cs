@@ -32,6 +32,5 @@ public class UpdateScrollBar : UpdateUIElements
    public override void UpdateUIElement(float info)
    {
       StartCoroutine(ScrollBarUpdate());
-      throw new System.NotImplementedException();
    }
 }

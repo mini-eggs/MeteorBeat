@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ public class ThirdPersonCamera : CameraBase
 	}
 	protected override void SetCameraPosition()
 	{
-		transform.position = Offset;
+		transform.position = target.transform.position + Offset;
 		transform.rotation = Quaternion.Euler(Angle);
 	}
 }
