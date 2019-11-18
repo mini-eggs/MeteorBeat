@@ -14,13 +14,16 @@ public class ShipIntegration : MonoBehaviour
     // The ship itself.
     private Rigidbody spaceship; 
 
-    // Particle to display when ship has collided w/ an asteroid.
-    // Set within Unity Editor.
-    public Transform particleShipAsteroidCollision;
+    // The ship's thrusters.
+    private Particle thrusters; 
 
-    // Particle effects for ship thruster.
-    // Set within Unity Editor.
-    public GameObject ParticleShipThruster;
+    // // Particle to display when ship has collided w/ an asteroid.
+    // // Set within Unity Editor.
+    // public Transform particleShipAsteroidCollision;
+
+    // // Particle effects for ship thruster.
+    // // Set within Unity Editor.
+    // public GameObject ParticleShipThruster;
 
     /*
      * Start
@@ -31,6 +34,14 @@ public class ShipIntegration : MonoBehaviour
     void Start()
     {
       spaceship = GetComponent<Rigidbody>();
+
+      // Create ship thruster particles.
+      thrusters = ParticleFactory.Get(ParticleType.Direction);
+    }
+
+    void Update()
+    {
+      thrusters.Run(spaceship);
     }
 
     /*
@@ -42,9 +53,7 @@ public class ShipIntegration : MonoBehaviour
     public void collideWithAsteroid() 
     {
       // Create explosion particles.
-      var particle = ParticleFactory.Get(ParticleType.Collision);
-      particle.SetEffect(particleShipAsteroidCollision);
-      particle.Run(spaceship.position);
+      ParticleFactory.Get(ParticleType.Collision).Run(spaceship);
 
       // Lock camera.
       GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraIntegration>().Lock();
