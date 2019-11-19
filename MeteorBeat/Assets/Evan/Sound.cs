@@ -9,6 +9,15 @@ using UnityEngine;
  *
  * Implements the singleton pattern to play game noise.
  *
+ * This BeatBox will be used by the level, ship, rings, asteroid. The
+ * first thing to play sound, the level, will need to run:
+ *    `BeatBox.Instance.LoadSounds(yourGameObject)`
+ * on init. All other instances of using BeatBox will only call one of
+ * four methods:
+ *    `PlayLevelSoundTrack`, `PlayGameLost`, `PlayGameWon`, and
+ *    `PlayPointGain`.
+ * You can see their usage below:
+ *
  * Usage: 
  *   var s = BeatBox.Instance;
  *   // Only needs to be done at top level once.
@@ -20,6 +29,8 @@ using UnityEngine;
  *   s.PlayGameWon();
  *   -or-
  *   s.PlayPointGain();
+ *   -or-
+ *   s.PlayPowerupGain();
  */
 
 public enum SoundType
@@ -28,6 +39,7 @@ public enum SoundType
    GameLevelSound,
    GameCollision,
    GamePointGain,
+   GamePowerupGain,
 }
 
 /*
@@ -129,6 +141,7 @@ public class SoundClip : IEquatable<SoundClip>
 
 /* 
  * BeatBox 
+ *
  * This is a singleton class, notice the private constructor. 
  * Do not add more constructors!
  */
@@ -140,6 +153,7 @@ public sealed class BeatBox : ScriptableObject
    private AudioSource gameLostClip;
    private AudioSource gameLevelSoundClip;
    private AudioSource gameCollisionClip;
+   private AudioSource gamePowerupClip;
 
    // in case BeatBox#LoadSounds is called more than once, we don't want 
    // to reload music files
@@ -151,6 +165,11 @@ public sealed class BeatBox : ScriptableObject
 
    public List<SoundClip> currentlyPlaying;
 
+   /*
+    * BeatBox
+    *
+    * Setup private datas.
+    */
    private BeatBox()
    {
       currentlyPlaying = new List<SoundClip>();
@@ -158,6 +177,11 @@ public sealed class BeatBox : ScriptableObject
       isPaused = false;
    }
 
+   /*
+    * IsPlaying
+    *
+    * For external classes to determine if the game is still running.
+    */
    public bool IsPlaying()
    {
       // Don't play game winning sound on pause!
@@ -171,6 +195,13 @@ public sealed class BeatBox : ScriptableObject
              hasLoaded);
    }
 
+   /*
+    * LoadSounds
+    *
+    * This method needs to be called first ALWAYS. 
+    * See `LevelIntegration` script. The level will always call this
+    * method first before any other usages of this singleton.
+    */
    public void LoadSounds(GameObject gameObject)
    {
       if (hasLoaded)
@@ -206,9 +237,12 @@ public sealed class BeatBox : ScriptableObject
       gameLevelSoundClip.clip = Resources.Load("soundtrack")
          as AudioClip; // ugh, line length.
 
-      // Is this really needed?
       gameCollisionClip = gameObject.AddComponent<AudioSource>();
       gameCollisionClip.clip = Resources.Load("explosion") as AudioClip;
+
+      gamePowerupClip = gameObject.AddComponent<AudioSource>();
+      gamePowerupClip.clip = Resources.Load("powerup") as AudioClip;
+
 
 
       gamePointGainClips = new List<AudioSource>();
@@ -224,10 +258,23 @@ public sealed class BeatBox : ScriptableObject
    }
 
    /* 
+    * PlayPowerupGain
+    *
+    * Play the powerup gaining jingle 
+    */
+   public void PlayPowerupGain(bool dryrun = false)
+   {
+      var clip = new SoundClip(
+            SoundType.GamePowerupGain, 
+            gamePowerupClip, 
+            dryrun);
+      currentlyPlaying.Add(clip);
+   }
+
+   /* 
     * PlayPointGain
     *
-    * Play the game winning jingle 
-    * iff a sound of SoundType#GameComplete is not already playing.
+    * Play the point gaining jingle 
     */
    public void PlayPointGain(bool dryrun = false)
    {
