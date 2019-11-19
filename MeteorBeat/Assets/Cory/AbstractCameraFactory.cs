@@ -26,10 +26,4 @@ public class AbstractCameraFactory : MonoBehaviour
 				break;
 		};
 	}
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
 }
