@@ -16,6 +16,11 @@ public class ShipIntegration : MonoBehaviour
 
    // The ship's thrusters.
    private Particle thrusters;
+   // health and score variables (cosette)
+   UpdateHealth myHealth;
+   UpdateScore myScore;
+   int score = 0;
+   int health = 5;
 
    /*
     * Start
@@ -30,6 +35,9 @@ public class ShipIntegration : MonoBehaviour
 
       // Create ship thruster particles.
       thrusters = ParticleFactory.Get(ParticleType.Direction);
+      //adding to the ship score and health (cosette)
+      myHealth = GetComponent<UpdateHealth>();
+      myScore = GetComponent<UpdateScore>();
    }
 
    void Update()
@@ -94,17 +102,15 @@ public class ShipIntegration : MonoBehaviour
    * Cosette's addition
    * Adds a health and score mechanism and attaches them to the GUI
    */
-   UpdateHealth myHealth;
-   UpdateScore myScore;
+   
    public void OnTriggerEnter(Collider other){
-      int score = 0;
-      int health = 5;
+      
       
       if(other.gameObject.name == "Asteroid"){
          health --;
          myHealth.UpdateUIElement(health/5);
       }
-      if(other.gameObject.name == "Ring"){
+      else if(other.gameObject.name == "Ring"){
          score += 100;
          myScore.UpdateUIElement(score);
       }
