@@ -7,14 +7,14 @@ public class CameraFactory
 	/* Concrete Factories for Camera
 	 * 
 	 */
-	public ThirdPersonCamera ThirdPersonFactory(GameObject parent, GameObject target)
+	static public ThirdPersonCamera ThirdPersonFactory(GameObject parent, GameObject target)
 	{
 		var temp = parent.AddComponent<ThirdPersonCamera>() as ThirdPersonCamera;
 		temp.Target = target;
 		temp.Initialize();
 		return temp;
 	}
-	public OverShoulderCamera OverShoulderFactory(GameObject parent, GameObject target)
+	static public OverShoulderCamera OverShoulderFactory(GameObject parent, GameObject target)
 	{
 
 		var temp = parent.AddComponent<OverShoulderCamera>() as OverShoulderCamera;
@@ -23,7 +23,7 @@ public class CameraFactory
 		return temp;
 
 	}
-	public CameraBase BasicCamera(GameObject parent)
+	static public CameraBase BasicCamera(GameObject parent)
 	{
 		var temp = parent.AddComponent<CameraBase>();
 		return temp;
