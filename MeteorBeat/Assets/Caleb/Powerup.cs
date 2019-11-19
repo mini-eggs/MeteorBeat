@@ -9,7 +9,8 @@
 public class Powerup : MonoBehaviour
 {   // Capsule b.c.s to emphasize its critical importance to this class
     public GameObject Capsule; //The powerup object
-    
+    public int heal = 20;
+    public int powerupSpawnRate = 100;
     void Start()
     {    
         if(Capsule.tag == ("Untagged")) //Only needed for stress testing
@@ -25,10 +26,10 @@ public class Powerup : MonoBehaviour
         //Move powerup if player is past it
         Vector3 spaceshipPosition = GameObject.Find("Spaceship").transform.position;
         Vector3 PowerupPosition = GameObject.Find("Powerup").transform.position;
-        if (PowerupPosition.z +20 < spaceshipPosition.z)
+        if (PowerupPosition.z +10 < spaceshipPosition.z)
         {
             //Debug.Log("ZZ: " + spaceshipPosition + PowerupPosition);
-            RelocatePowerup(spaceshipPosition.z);
+            RelocatePowerup(spaceshipPosition);
             //Debug.Log("Capsule Passed...moving ahead");
         }
     }
@@ -36,56 +37,37 @@ public class Powerup : MonoBehaviour
     /* Only called when ther is a collision with spaceship and Powerup
      * 'Uses' the powerup & relocates it 
      */
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Collision");
-        Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;       
-        UsePowerup();
-        //Relocate powerup to later in the game (Bigger Z axis number)
-        RelocatePowerup(SpaceshipPosition.z);     
-    }
+        if (other.CompareTag("Player"))
+        {
+            //Debug.Log("Collision");
+            Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;
+            PowerupControl.UsePowerup(Capsule.tag);
+            //Relocate powerup to later in the game (Bigger Z axis number)
+            RelocatePowerup(SpaceshipPosition);     
+        }
 
-
-    void UsePowerup()
-    {
-        //Will call different commands depending on the powerup type
-        //Debug.Log(Capsule.tag);
-        if (Capsule.tag == "Health")
-        {
-            //AddHealth();
-        }
-        else if (Capsule.tag == "ScoreMultiply")
-        {
-            //multiplyScore();
-        }
-        else if (Capsule.tag == "Invincibility")
-        {
-            //Invincibility();
-        }
-        else //Capsule.tag == "Super"
-        {                     
-            //AddHealth();
-            //multiplyScore();
-            //Invincibility();
-        }
     }
 
     /* This will move the powerup beyond the z position on the ship
      * and change which type of powerup it is.
      */
-    void RelocatePowerup(float ZCord)
+    public virtual void RelocatePowerup(Vector3 shipPosition)
     {
         PowerupType();                                      //Set powerup type
         Vector3 Location = GetRandom.NewCoordinates();      //Set new 'random' coordinates
-        Location.z += ZCord + 20;                           //Powerup is at least 20 units ahead of the player when its relocated
+        Location.x += shipPosition.x;
+        Location.y += shipPosition.y;
+        Location.z += shipPosition.z + powerupSpawnRate;                           //Powerup is at least 20 units ahead of the player when its relocated
         Capsule.transform.position = Location;              //Set new location
-        Debug.Log("Capsule moved to " + Location );
+        //Debug.Log("Capsule moved to " + Location );
     }
 
     //Randomly Selects the type of powerup (tag) it will be 
     void PowerupType()
     {
-        int x = GetRandom.GetRand(4);
+        int x = 4; // GetRandom.GetRand(4);
 
         if (x % 4 == 0)
         {
@@ -128,3 +110,5 @@ public class Powerup : MonoBehaviour
         Debug.Log("Final spawn count: " +finalCount);
     }
 }
+
+

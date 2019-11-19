@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +7,9 @@ using UnityEngine;
  * Particle System implements a factory pattern.
  *
  * Usage:
- *   var p = ParticleFactory.Get(ParticleType.Collision);
- *   p.SetEffect(new Vector3(1, 2, 3));
- *   p.Run();
- *
+ *   ParticleFactory.Get(ParticleType.Collision).Run(someRigidBody);
+ *   -or-
+ *   ParticleFactory.Get(ParticleType.Direction).Run(someRigidBody);
  */
 
 /*
@@ -21,10 +20,53 @@ using UnityEngine;
  * Direction - trailing particles for ship and asteroids.
  * Collision - explosion paticles for ship collision with asteroid.
  */
-public enum ParticleType 
+public enum ParticleType
 {
-  Collision, 
-  Direction
+   Collision,
+   Direction
+}
+
+/* 
+ * BaseParticle
+ *
+ * A simple class to extend from that loads in the prefabs
+ */
+public class BaseParticle : ScriptableObject
+{
+
+   // The prefab for the particle particle effect. See factory below.
+   public GameObject prefab;
+
+   // For testing use. Makes testing a h*ll of a lot easier.
+   protected ILogger log = new NoOpLog();
+
+   // For testing use. Allow setting custom loggers.
+   public void SetLogger(ILogger nextLogger)
+   {
+      log = nextLogger;
+   }
+
+   // Load in prefab resource.
+   public void Load(string prefabName)
+   {
+      log.Run("BaseParticle#Load");
+      prefab = Resources.Load(prefabName) as GameObject;
+   }
+
+   /*
+    * CurrentPrefabs
+    *
+    * Get all `GameObject`s in use for class instance.
+    * Return the count accurate to their usage.
+    */
+   public virtual List<GameObject> CurrentGameObjects()
+   {
+      log.Run("BaseParticle#CurrentGameObjects");
+      var list = new List<GameObject>();
+      list.Add(prefab);
+      return list;
+   }
+
 }
 
 /*
@@ -32,167 +74,185 @@ public enum ParticleType
  *
  * The base particle type. Specifies what particles should implemment.
  */
-public abstract class Particle : ScriptableObject
+public abstract class Particle : BaseParticle
 {
-    public abstract void SetEffect(Transform e);
-    public abstract void Run(Vector3 position);
+   public abstract void Run(Rigidbody parent);
 }
 
 /*
  * CollisionParticle
  *
- * TODO: impl. + docs.
+ * Once instantiated, give `Run` a rigid body to show collition 
+ * explosion at the rigid body's location.
  */
 class CollisionParticle : Particle
 {
 
-  // The particle object shown on screen. 
-  private Transform alive; 
+   public override void Run(Rigidbody parent)
+   {
+      log.Run("CollisionParticle#Run");
 
-  public override void SetEffect(Transform e) 
-  {
-    alive = Instantiate(e, new Vector3(0, 0, 0), Quaternion.identity);
-  }
+      // Instantiate and set position.
+      var item = Instantiate(
+            prefab,
+            Vector3.zero,
+            Quaternion.identity);
 
-  public override void Run(Vector3 next)
-  {
-    alive.position = next;
-  }
+      item.transform.position = parent.transform.position;
+   }
 
 }
 
 /* 
  * DirectionParticle
  *
- * Given an effect (Unity#Transform) instantiate the effect and continue to
- * trail the position (UnityEngine#Vector3) supplied.
+ * Given an effect (Unity#Transform) instantiate the effect and 
+ * continue to trail the position (UnityEngine#Vector3) supplied.
  */
 class DirectionParticle : Particle
 {
 
-  private Transform effect; // The effect to be instantiated.
-  private Transform alive; // The particle object shown on screen. 
+   // The prefab used for thrusters.
+   new private GameObject prefab;
 
-  // Initial screen location of particle before Unity#Vector3 is given.
-  private static Vector3 initialPosition = new Vector3(0, 0, 0); 
-  
-  /* 
-   * SetEffect
-   *
-   * Given an effect instantiate it and add it to the scene.
-   */
-  public override void SetEffect(Transform e) 
-  {
-    effect = e;
-    alive = Instantiate(effect, initialPosition, Quaternion.identity);
-  }
-  
-  /* 
-   * Run
-   *
-   * Update live effect. Trail the Unity#Vector3.
-   */
-  public override void Run(Vector3 next) 
-  {
-    if (alive != null)
-    {
-      alive.position = toShip(next);
-    }
-  }
+   // Section of the thrusters.
+   private GameObject left;
+   private GameObject center;
+   private GameObject right;
 
-  /*
-   * toShip
-   *
-   * To transform Unity#Vector3 to account for ship size, location, dimensions.
-   */
-  private Vector3 toShip(Vector3 next) 
-  {
-    next.y -= 1.75f;
-    next.z -= 2f;
-    return next;
-  }
-  
-  /*
-   * Kill
-   *
-   * Remove item from scene.
-   */
-  public void Kill() 
-  {
-    Destroy(alive.gameObject);
-  }
+   /* 
+    * Run
+    *
+    * Update live particles. Trail the Unity#Vector3.
+    */
+   public override void Run(Rigidbody parent)
+   {
+      log.Run("DirectionParticle#Run");
+
+      // Load prefab in if not available.
+      if (prefab == null)
+      {
+         prefab = Resources.Load("thruster_prefab") as GameObject;
+      }
+
+      // Insantiate object if not in scene.
+      if (left == null)
+      {
+         left = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+         left.transform.parent = parent.transform;
+      }
+
+      if (center == null)
+      {
+         center = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+         center.transform.parent = parent.transform;
+      }
+
+      if (right == null)
+      {
+         right = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+         right.transform.parent = parent.transform;
+      }
+
+      // Calculate new positions.
+      var pos = new Vector3(parent.transform.position.x,
+                            parent.transform.position.y + 0.3f,
+                            parent.transform.position.z + 3.1f);
+
+      left.transform.position = new Vector3(pos.x - 0.6f,
+                                            pos.y - 0.5f,
+                                            pos.z - 4.659f);
+
+      center.transform.position = new Vector3(pos.x - 0.0f,
+                                              pos.y - 0.29f,
+                                              pos.z - 5.22f);
+
+      right.transform.position = new Vector3(pos.x + 0.6f,
+                                             pos.y - 0.5f,
+                                             pos.z - 4.659f);
+   }
+
+   /**
+    * CurrentPrefabs
+    *
+    * Get all `GameObject`s in use for class instance.
+    * Return the count accurate to their usage.
+    */
+   new public virtual List<GameObject> CurrentGameObjects()
+   {
+      log.Run("DirectionParticle#CurrentGameObjects");
+      var list = new List<GameObject>();
+      list.Add(left);
+      list.Add(right);
+      list.Add(center);
+      return list;
+   }
 
 }
 
 /*
  * ParticleFactory
  *
- * Return a Particle instance. Users of Particle class do not care nor should
- * they care about WHAT type of particle they may be trying to instantiate. Just
- * that they need particles instantiated. Minimize cognitive overhead.
+ * Return a Particle instance. Users of Particle class do not care nor 
+ * should they care about WHAT type of particle they may be trying to 
+ * instantiate. Just that they need particles instantiated. Minimize 
+ * cognitive overhead.
  */
 public static class ParticleFactory
 {
-  
-  /* 
-   * ParticleContainer
-   *
-   * Use to kill particles that should be dead (i.e. don't display on screen
-   * when they should not be - like ship exhaust when collision explosion
-   * occurs).
-   */
-  class ParticleContainer 
-  {
 
-    private List<Particle> current;
-
-    public ParticleContainer() 
-    {
-      current = new List<Particle>();
-    }
-    
-    public void Add(Particle item)
-    {
-      current.Add(item);
-    }
-
-    public void Add(CollisionParticle item) 
-    {
-      // Kill all ship trailing particles when explosion occurs.
-      current.ForEach((Particle some) => 
+   /* 
+    * Particle#Get
+    *
+    * Given a ParticleType enum return a Particle instance or throw 
+    * exception invalid argument.
+    */
+   public static Particle Get(ParticleType type)
+   {
+      switch (type)
       {
-        if (some is DirectionParticle) 
-        {
-          (some as DirectionParticle).Kill();
-        }
-      });
-      
-      current.Clear();
-    }
-  }
+         case ParticleType.Collision:
+            var col = ScriptableObject
+               .CreateInstance<CollisionParticle>();
+            col.Load("explosion_prefab");
+            return col;
+         case ParticleType.Direction:
+            var dir = ScriptableObject
+               .CreateInstance<DirectionParticle>();
+            dir.Load("thruster_prefab");
+            return dir;
+         default:
+            throw new Exception("not an enum type of ParticleType");
+      }
+   }
+   
+   /* 
+    * Particle#Get
+    *
+    * Given a ParticleType enum return a Particle instance or throw 
+    * exception invalid argument.
+    */
+   public static Particle Get(
+         ParticleType type,
+         ILogger logger)
+   {
+      switch (type)
+      {
+         case ParticleType.Collision:
+            var col = ScriptableObject
+               .CreateInstance<CollisionParticle>();
+            col.SetLogger(logger);
+            col.Load("explosion_prefab");
+            return col;
+         case ParticleType.Direction:
+            var dir = ScriptableObject
+               .CreateInstance<DirectionParticle>();
+            dir.SetLogger(logger);
+            dir.Load("thruster_prefab");
+            return dir;
+         default:
+            throw new Exception("not an enum type of ParticleType");
+      }
+   }
 
-  static ParticleContainer container = new ParticleContainer();
-
-  /* 
-   * Particle#Get
-   *
-   * Given a ParticleType enum return a Particle instance or throw excepti on 
-   * invalid argument.
-   */
-  public static Particle Get(ParticleType type)
-  {
-    switch (type)
-    {
-      case ParticleType.Collision:
-        var collision = ScriptableObject.CreateInstance<CollisionParticle>();
-        container.Add(collision);
-        return collision;
-      case ParticleType.Direction: 
-        var direction = ScriptableObject.CreateInstance<DirectionParticle>();
-        container.Add(direction);
-        return direction;
-      default:
-        throw new Exception("not an enum type of ParticleType");
-    }
-  }
 }
