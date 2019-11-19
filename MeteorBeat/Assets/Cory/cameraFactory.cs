@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CameraFactory
+public class CameraFactory
 {
 	/* Concrete Factories for Camera
 	 * 
