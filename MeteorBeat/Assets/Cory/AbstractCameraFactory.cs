@@ -7,10 +7,9 @@ public enum CameraType
 	overTheShoulder = 1,
 	sideScroller = 2
 };
-public class AbstractCameraFactory : MonoBehaviour
+public class AbstractCameraFactory
 {
-
-	// Start is called before the first frame update
+	/* Abstract Factory Calling Concrete Factories of Cameras */
 	static public CameraBase Factory(CameraType type, GameObject gameObject, GameObject target) {
 		switch (type)
 		{
@@ -23,7 +22,8 @@ public class AbstractCameraFactory : MonoBehaviour
 				return shoulderCamera;
 				break;
 			default:
-				return new CameraBase();
+				return CameraFactory.BasicCamera(gameObject);
+				break;
 		};
 	}
 }
