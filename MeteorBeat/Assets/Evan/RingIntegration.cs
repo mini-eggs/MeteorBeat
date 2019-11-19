@@ -10,15 +10,7 @@ using UnityEngine;
  */
 public class RingIntegration : MonoBehaviour
 {
-  
-   //the scoreing mechanism is Cosette's 
-   UpdateScore myScore;
-   static int score = 0;
-   
-   void Start(){
-      myScore = GameObject.FindGameObjectWithTag("Player").GetComponent<UpdateScore>();
-   }
-   
+   int score = 0;
    /*
     * OnTriggerEnter
     *
@@ -26,9 +18,7 @@ public class RingIntegration : MonoBehaviour
     */
    void OnTriggerEnter()
    {
-      BeatBox.Instance.PlayPointGain(); // part of Evan's work
+      BeatBox.Instance.PlayPointGain();
       score += 100;
-      myScore.UpdateUIElement(score);
-      
    }
 }
