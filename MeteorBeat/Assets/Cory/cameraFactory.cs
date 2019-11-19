@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFactory
+namespace CameraFactory
 {
-	static public ThirdPersonCamera ThirdPersonFactory(GameObject parent, GameObject target)
+	/* Concrete Factories for Camera
+	 * 
+	 */
+	public ThirdPersonCamera ThirdPersonFactory(GameObject parent, GameObject target)
 	{
 		var temp = parent.AddComponent<ThirdPersonCamera>() as ThirdPersonCamera;
 		temp.Target = target;
 		temp.Initialize();
 		return temp;
 	}
-
-	static public OverShoulderCamera OverShoulderFactory(GameObject parent, GameObject target)
+	public OverShoulderCamera OverShoulderFactory(GameObject parent, GameObject target)
 	{
 
 		var temp = parent.AddComponent<OverShoulderCamera>() as OverShoulderCamera;
@@ -21,12 +23,11 @@ public class CameraFactory
 		return temp;
 
 	}
-	static public CameraBase BasicCamera(GameObject parent)
+	public CameraBase BasicCamera(GameObject parent)
 	{
 		var temp = parent.AddComponent<CameraBase>();
 		temp.Target = target;
 		return temp;
 	}
-
 
 }

@@ -9,7 +9,7 @@ public enum CameraType
 };
 public class AbstractCameraFactory
 {
-	/* Abstract Factory Calling ConcreteFactories of Cameras */
+	/* Abstract Factory Calling Concrete Factories of Cameras */
 	static public CameraBase Factory(CameraType type, GameObject gameObject, GameObject target) {
 		switch (type)
 		{
