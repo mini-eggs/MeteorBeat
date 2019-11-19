@@ -2,43 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Command Design pattern
+ * This class takes a command from the powerup
+ * and tells the health or score to do something
+ * depending on the tag it was sent. * 
+ */
 public class PowerupControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public static void UsePowerup(string tag)
+    public static void UsePowerup(string tag, int scoreToAdd )
     {
         //Will call different commands depending on the powerup type
-        //Debug.Log("TAG: "+tag);
-
         if (tag == "Health")
         {
-
-            //AddHealth(heal);
+            //Ship.health += 1; 
         }
-        else if (tag == "ScoreMultiply")
+        else if (tag == "Score")
         {
-            //multiplyScore();
+            //Ship.score += scoreToAdd;
         }
-        else if (tag == "Invincibility")
+        else if (tag == "Super")
         {
-            //Invincibility();
-        }
-        else //Capsule.tag == "Super"
-        {
-            //AddHealth();
-            //multiplyScore();
-            //Invincibility();
+            //Ship.health += 20;
+            //Ship.score += 500;
         }
     }
 }

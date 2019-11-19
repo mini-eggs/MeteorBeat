@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* A subclass of powerup
+ * Only adds points to the score 
+ * if they can click on it.
+ */
 public class MiniPowerup : Powerup
 {
     public float coolDown = 1f;
     float delayTimer = 0;
-    // Start is called before the first frame update
+
     void Start()
     {
         Physics.queriesHitTriggers = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         delayTimer += Time.deltaTime;
@@ -31,13 +34,14 @@ public class MiniPowerup : Powerup
         }
     }
 
+
+    // Creates a new powerup that only adds to score
     IEnumerator MiniPower()
     {
-        //yield return new WaitForSeconds(1);
         Vector3 spaceshipPosition = GameObject.Find("Spaceship").transform.position;
         GameObject mini = Instantiate(Capsule);
         mini.name = "MiniPower";
-        mini.tag = "Score";
+        PowerupType(mini);
         if (mini.GetComponent<Renderer>())
         {
             mini.GetComponent<Renderer>().material.color = Color.green;
@@ -47,14 +51,21 @@ public class MiniPowerup : Powerup
         yield return null;
     }
 
+    //Dynamic binding of how much to add to the score with this mini powerup 
+    public override void PowerupType(GameObject mini)
+    {
+        mini.tag = "Score";
+        scoreToAdd = 20;
+    }
+
+    //When the player clicks the mini powerup
     public virtual void OnMouseDown()
     {
         if(this.name == "MiniPower")
         {
+            PowerupControl.UsePowerup(this.name, 20);
             //AddScore();
             Destroy(this.gameObject);
         }
     }
-
-
 }

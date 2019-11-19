@@ -9,7 +9,7 @@
 public class Powerup : MonoBehaviour
 {   // Capsule b.c.s to emphasize its critical importance to this class
     public GameObject Capsule; //The powerup object
-    public int heal = 20;
+    public int scoreToAdd = 200;
     public int powerupSpawnRate = 100;
     void Start()
     {    
@@ -43,7 +43,7 @@ public class Powerup : MonoBehaviour
         {
             //Debug.Log("Collision");
             Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;
-            PowerupControl.UsePowerup(Capsule.tag);
+            PowerupControl.UsePowerup(Capsule.tag, scoreToAdd);
             //Relocate powerup to later in the game (Bigger Z axis number)
             RelocatePowerup(SpaceshipPosition);     
         }
@@ -55,7 +55,7 @@ public class Powerup : MonoBehaviour
      */
     public virtual void RelocatePowerup(Vector3 shipPosition)
     {
-        PowerupType();                                      //Set powerup type
+        PowerupType(Capsule);                                      //Set powerup type
         Vector3 Location = GetRandom.NewCoordinates();      //Set new 'random' coordinates
         Location.x += shipPosition.x;
         Location.y += shipPosition.y;
@@ -65,26 +65,19 @@ public class Powerup : MonoBehaviour
     }
 
     //Randomly Selects the type of powerup (tag) it will be 
-    void PowerupType()
+    public virtual void PowerupType(GameObject Capsule)
     {
-        int x = 4; // GetRandom.GetRand(4);
+        int x = GetRandom.GetRand(2);
 
-        if (x % 4 == 0)
+        if (x % 2 == 0)
         {
             Capsule.tag = "Health";
         }
-        else if (x % 4 == 1)
+        else if (x % 2 == 1)
         {
-            Capsule.tag = "ScoreMultiply";
+            Capsule.tag = "Score";
         }
-        else if (x % 4 == 2)
-        {
-            Capsule.tag = "Invincibility";
-        }
-        else
-        {
-            Capsule.tag = "Super";
-        }
+
     }
 
     /* STRESS TEST ------------------

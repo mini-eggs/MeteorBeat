@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+//One in a million chance to spawn this rare super powerup 
 public class Rare : MonoBehaviour
 {
     void Update()
@@ -13,6 +13,7 @@ public class Rare : MonoBehaviour
         }
     }
 
+    //Collision with the spaceship to trigger this powerup
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("Name:" +this.name);
@@ -21,6 +22,7 @@ public class Rare : MonoBehaviour
     }
 }
 
+//Creates one instance of this rare powerup
 public sealed class SuperPowerup
 {
     public void AddSuperPowerup()
@@ -30,7 +32,7 @@ public sealed class SuperPowerup
 
     private void DrawSuperPowerup()
     {
-        //Debug.Log("MADE");
+        Debug.Log("MADE");
         GameObject power = GameObject.Find("BallofPower");
         if (power)
         {
@@ -38,11 +40,11 @@ public sealed class SuperPowerup
             Vector3 SpaceshipPosition = GameObject.Find("Spaceship").transform.position;
             power.transform.position += Location+SpaceshipPosition;
             power.tag = "Super";
+            Debug.Log("Location: " + power.transform.position);
         }
 
     }
     /* Singletong pattern for this one in a million special event
-     * 
      * 
      */
     private SuperPowerup() { }
