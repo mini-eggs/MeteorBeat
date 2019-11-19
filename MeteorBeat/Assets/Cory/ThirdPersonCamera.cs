@@ -14,7 +14,7 @@ public class ThirdPersonCamera : CameraBase
 	}
 	protected override void Update()
 	{
-		var transformMaster   = target.transform;
+		var transformMaster = target.transform;
 		Vector3 rotationDelta = transformMaster.rotation.eulerAngles - lastRotation;
 		lastRotation = transformMaster.rotation.eulerAngles;
 		transform.RotateAround(transformMaster.position, Vector3.right, rotationDelta.x);
