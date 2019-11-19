@@ -28,9 +28,9 @@ public class CameraBase : MonoBehaviour
     {
         
     }
-
+	
     // Update is called once per frame
-    protected virtual void Update()
+    public virtual void Update()
     {
 		CameraFollow();
     }
