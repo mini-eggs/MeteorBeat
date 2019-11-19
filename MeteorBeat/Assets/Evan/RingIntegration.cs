@@ -10,7 +10,7 @@ using UnityEngine;
  */
 public class RingIntegration : MonoBehaviour
 {
-   int score = 0;
+   static int score = 0;
    /*
     * OnTriggerEnter
     *

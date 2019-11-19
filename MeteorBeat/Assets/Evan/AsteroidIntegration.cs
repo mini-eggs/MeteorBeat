@@ -32,9 +32,7 @@ public class AsteroidIntegration : MonoBehaviour
       else
       {
          health = 5;
-         GameObject.FindGameObjectWithTag("Player")
-                   .GetComponent<ShipIntegration>()
-                   .CollideWithAsteroid();
+         GameObject.FindGameObjectWithTag("Player").GetComponent<ShipIntegration>().CollideWithAsteroid();
       }
    }
 }
