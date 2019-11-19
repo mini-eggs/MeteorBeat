@@ -7,13 +7,14 @@ using UnityEngine.EventSystems;
 public class UpdateScore : UpdateUIElements
 {
    public GameObject myText;
-
+   float score = 0;
    // Attach script keeping track of score here and pass it as the score
 
 
    // Function that, when called, will update the score on screen.
    public override void UpdateUIElement(float info)
    {
-      ExecuteEvents.Execute<ICustomUIListener>(myText, null, (x, y) => x.UpdateUIElement(info));
+      score += info;
+      ExecuteEvents.Execute<ICustomUIListener>(myText, null, (x, y) => x.UpdateUIElement(score));
    }
 }
