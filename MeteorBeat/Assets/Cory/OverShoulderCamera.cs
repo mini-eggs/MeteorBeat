@@ -23,6 +23,10 @@ public class OverShoulderCamera : CameraBase
 		transform.position = target.transform.position + Offset;
 		transform.rotation = Quaternion.Euler(Angle);
 	}
+	/* CameraFollow
+	 * This makes the camera rotate along with the spacecraft based on a delta from the last time it was called
+	 * 
+	 */
 	protected override void CameraFollow()
 	{
 		var transformMaster = target.transform;

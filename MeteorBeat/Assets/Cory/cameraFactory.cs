@@ -24,6 +24,7 @@ public class CameraFactory
 	static public CameraBase BasicCamera(GameObject parent)
 	{
 		var temp = parent.AddComponent<CameraBase>();
+		temp.Target = target;
 		return temp;
 	}
 
