@@ -90,5 +90,24 @@ public class ShipIntegration : MonoBehaviour
       // Play game over sounds.
       BeatBox.Instance.PlayGameWon();
    }
+   /*
+   * Cosette's addition
+   * Adds a health and score mechanism and attaches them to the GUI
+   */
+   UpdateHealth myHealth;
+   UpdateScore myScore;
+   public void OnTriggerEnter(Collider other){
+      int score = 0;
+      int health = 5;
+      
+      if(other.gameObject.name == "Asteroid"){
+         health --;
+         myHealth.UpdateUIElement(health/5);
+      }
+      if(other.gameObject.name == "Ring"){
+         score += 100;
+         myScore.UpdateUIElement(score);
+      }
+   }
 
 }
