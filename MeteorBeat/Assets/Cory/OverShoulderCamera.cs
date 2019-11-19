@@ -24,7 +24,7 @@ public class OverShoulderCamera : CameraBase
 		transform.rotation = Quaternion.Euler(Angle);
 	}
 	/* CameraFollow
-	 * This makes the camera rotate along with the spacecraft based on a delta from the last time it was called
+	 * This makes the camera rotate along with the spacecraft
 	 * 
 	 */
 	protected override void CameraFollow()
@@ -35,7 +35,8 @@ public class OverShoulderCamera : CameraBase
 		transform.RotateAround(transformMaster.position, Vector3.right, rotationDelta.x);
 		transform.RotateAround(transformMaster.position, Vector3.forward, rotationDelta.z);
 		transform.RotateAround(transformMaster.position, Vector3.up, rotationDelta.y);
+		transform.LookAt(target.transform.position);
 	}
 	static private Vector3 overShoulderAngle = new Vector3(5f, 5f, 0f);
-	static private Vector3 overShoulderOffset = new Vector3(1f, .75f, -3f);
+	static private Vector3 overShoulderOffset = new Vector3(1f, .75f, -3.5f);
 }
