@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class AsteroidIntegration : MonoBehaviour
 {
-   /*cosette's addition: I added a health mechanism
+   /* Cosette's addition: I added a health mechanism
     * the health says 5 however with the if statement it will be 6 lives
     */
    static int health = 5;
