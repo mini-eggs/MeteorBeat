@@ -4,16 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 // Class that contains a function which can update the score text UI element.
-public class UpdateScore : UpdateUIElements
+public class UpdateScore : MonoBehaviour
 {
    public GameObject myText;
 
-   // Attach script keeping track of score here and pass it as the score
-
-
    // Function that, when called, will update the score on screen.
-   public override void UpdateUIElement(float info)
+   public void UpdateUIElements(float score)
    {
-      ExecuteEvents.Execute<ICustomUIListener>(myText, null, (x, y) => x.UpdateUIElement(info));
+      ExecuteEvents.Execute<ICustomUIListener>(myText, null, (x, y) => x.UpdateUIElement(score));
    }
 }

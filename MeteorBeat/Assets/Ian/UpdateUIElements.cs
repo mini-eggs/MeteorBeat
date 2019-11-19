@@ -7,5 +7,5 @@ using UnityEngine;
 */
 public abstract class UpdateUIElements : MonoBehaviour
 {
-    abstract public void UpdateUIElement(float info);
+    abstract public IEnumerator UpdateUIElement();
 }

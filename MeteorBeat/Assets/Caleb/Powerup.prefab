@@ -13,11 +13,9 @@ GameObject:
   - component: {fileID: 4844994870865159940}
   - component: {fileID: 4844994870865159941}
   - component: {fileID: 4844994870865159938}
-  - component: {fileID: -8285473306348437692}
-  - component: {fileID: -2541455219961821857}
   m_Layer: 0
   m_Name: Powerup
-  m_TagString: Health
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4844994870865159943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.587306, y: -71.62631, z: 306.3158}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,33 +106,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Capsule: {fileID: 4844994870865159943}
-  heal: 20
-  powerupSpawnRate: 40
---- !u!114 &-8285473306348437692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4844994870865159943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3feb683435673754a924715239dcdb5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &-2541455219961821857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4844994870865159943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1a26bf032e98454ca9b89036cb7eda9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Capsule: {fileID: 5566967013864165260, guid: 3f6548aa9f053324fb1c868408231035, type: 3}
-  heal: 20
-  powerupSpawnRate: 40
-  coolDown: 2
