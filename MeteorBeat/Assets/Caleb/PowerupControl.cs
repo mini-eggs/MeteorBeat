@@ -13,16 +13,17 @@ public class PowerupControl : MonoBehaviour
     {
         //Will call different commands depending on the powerup type
         if (tag == "Health")
-        {            
-            //AddHealth(heal);
+        {
+            //Ship.health += 1; 
         }
         else if (tag == "Score")
         {
-            //multiplyScore();
+            //Ship.score += scoreToAdd;
         }
         else if (tag == "Super")
         {
-            //Invincibility();
+            //Ship.health += 20;
+            //Ship.score += 500;
         }
     }
 }
