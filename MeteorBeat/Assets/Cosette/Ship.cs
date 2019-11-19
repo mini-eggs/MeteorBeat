@@ -8,7 +8,7 @@ using UnityEngine;
  * Meta class for simply connecting the particle effects to the ship. 
  * Connect this class to the ship within Unity editor.
  */
-public class ShipIntegration : MonoBehaviour
+public class Ship : MonoBehaviour
 {
 
    // The ship itself.
