@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5048798810046908488}
   - component: {fileID: 2656294912041995710}
   - component: {fileID: 2656294912041995708}
+  - component: {fileID: -3172988285134658229}
+  - component: {fileID: -2221169442162057579}
   m_Layer: 0
   m_Name: Spaceship
   m_TagString: Untagged
@@ -97,6 +99,32 @@ MonoBehaviour:
   pausePlane: {fileID: 7119594949433406580}
   restartButton: {fileID: 0}
   quitButton: {fileID: 0}
+--- !u!114 &-3172988285134658229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab2f5370f08c43439cfd5115bbd7c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 0}
+--- !u!114 &-2221169442162057579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048798810046908490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2641b69786e37641b0a1f8cd536ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHealthText: {fileID: 0}
 --- !u!1 &5048798811394529463
 GameObject:
   m_ObjectHideFlags: 0
