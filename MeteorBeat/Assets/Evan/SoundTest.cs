@@ -41,12 +41,12 @@ namespace Tests
 
          s.PlayGameWon();
 
-         Assert.AreEqual(2, s.currentlyPlaying.Count);
+         Assert.AreEqual(1, s.currentlyPlaying.Count);
          Assert.AreEqual(SoundType.GameComplete, s.currentlyPlaying[s.currentlyPlaying.Count - 1].type);
       }
 
-      [Test]
-      public void PlaySoundMultiThreadedWorkload()
+      [UnityTest]
+      public IEnumerator PlaySoundMultiThreadedWorkload()
       {
          // Ensure all tasks play their sounds.
          var s = BeatBox.Instance;
@@ -61,6 +61,7 @@ namespace Tests
          }
 
          Task.WaitAll(tasks);
+         yield return new WaitForSeconds(0.1f);
 
          Assert.AreEqual(10, s.currentlyPlaying.Count);
       }
