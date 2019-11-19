@@ -321,6 +321,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 62.581, y: 78.165, z: 94.159004}
+--- !u!1 &948665240 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6629489652027089050, guid: 15640ef73cb59404389637cff14a581a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2077985747}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &948665246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948665240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2641b69786e37641b0a1f8cd536ec5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myHealthText: {fileID: 99691439}
+--- !u!114 &948665247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948665240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ab2f5370f08c43439cfd5115bbd7c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myText: {fileID: 482511028}
 --- !u!1001 &1440234986
 PrefabInstance:
   m_ObjectHideFlags: 0
