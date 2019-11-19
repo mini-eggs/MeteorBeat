@@ -5,6 +5,11 @@ using UnityEngine;
 public class ThirdPersonCamera : CameraBase
 {
 	Vector3 lastRotation = new Vector3();
+	ThirdPersonCamera()
+	{
+		Angle = thirdPersonAngle;
+		Offset = thirdPersonOffset;
+	}
 	public void Start()
 	{
 	}
@@ -14,7 +19,7 @@ public class ThirdPersonCamera : CameraBase
 	}
 	protected override void Update()
 	{
-		var transformMaster   = target.transform;
+		var transformMaster = target.transform;
 		Vector3 rotationDelta = transformMaster.rotation.eulerAngles - lastRotation;
 		lastRotation = transformMaster.rotation.eulerAngles;
 		transform.RotateAround(transformMaster.position, Vector3.right, rotationDelta.x);
@@ -26,4 +31,6 @@ public class ThirdPersonCamera : CameraBase
 		transform.position = target.transform.position + Offset;
 		transform.rotation = Quaternion.Euler(Angle);
 	}
+	static private Vector3 thirdPersonAngle = new Vector3(15f, 0f, 0f);
+	static private Vector3 thirdPersonOffset = new Vector3(0f, 2f, -5.5f);
 }

@@ -148,7 +148,7 @@ public class SoundClip : IEquatable<SoundClip>
 public sealed class BeatBox : ScriptableObject
 {
    // sounds
-   private List<AudioSource> gamePointGainClips;
+   private AudioSource gamePointGainClip;
    private AudioSource gameWonClip;
    private AudioSource gameLostClip;
    private AudioSource gameLevelSoundClip;
@@ -243,16 +243,8 @@ public sealed class BeatBox : ScriptableObject
       gamePowerupClip = gameObject.AddComponent<AudioSource>();
       gamePowerupClip.clip = Resources.Load("powerup") as AudioClip;
 
-
-
-      gamePointGainClips = new List<AudioSource>();
-      // Note: point sounds same as game winning sounds.
-      foreach (string sound in winnings)
-      {
-         var item = gameObject.AddComponent<AudioSource>();
-         item.clip = Resources.Load(sound) as AudioClip;
-         gamePointGainClips.Add(item);
-      }
+      gamePointGainClip = gameObject.AddComponent<AudioSource>();
+      gamePointGainClip.clip = Resources.Load("ring_blip") as AudioClip;
 
       hasLoaded = true;
    }
@@ -278,10 +270,10 @@ public sealed class BeatBox : ScriptableObject
     */
    public void PlayPointGain(bool dryrun = false)
    {
-      var count = gamePointGainClips.Count;
-      var randomIndex = UnityEngine.Random.Range(0, count);
-      var sound = gamePointGainClips[randomIndex];
-      var clip = new SoundClip(SoundType.GamePointGain, sound, dryrun);
+      var clip = new SoundClip(
+            SoundType.GamePointGain, 
+            gamePointGainClip, 
+            dryrun);
       currentlyPlaying.Add(clip);
    }
 
