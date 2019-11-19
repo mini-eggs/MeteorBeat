@@ -17,19 +17,18 @@ public class ThirdPersonCamera : CameraBase
 	{
 		SetCameraPosition();
 	}
-	protected override void Update()
+	public override void Update()
 	{
-		var transformMaster = target.transform;
-		Vector3 rotationDelta = transformMaster.rotation.eulerAngles - lastRotation;
-		lastRotation = transformMaster.rotation.eulerAngles;
-		transform.RotateAround(transformMaster.position, Vector3.right, rotationDelta.x);
-		transform.RotateAround(transformMaster.position, Vector3.forward, rotationDelta.z);
-		transform.RotateAround(transformMaster.position, Vector3.up, rotationDelta.y);
+		CameraFollow();
 	}
 	protected override void SetCameraPosition()
 	{
 		transform.position = target.transform.position + Offset;
 		transform.rotation = Quaternion.Euler(Angle);
+	}
+	protected override void CameraFollow()
+	{
+
 	}
 	static private Vector3 thirdPersonAngle = new Vector3(15f, 0f, 0f);
 	static private Vector3 thirdPersonOffset = new Vector3(0f, 2f, -5.5f);
