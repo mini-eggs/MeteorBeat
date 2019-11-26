@@ -591,7 +591,7 @@ MonoBehaviour:
     type: 3}
   spawnDistance: 3
   meteorSpawnRate: 3
-  ringSpawnTime: 2
+  ringSpawnDelay: 0
 --- !u!1001 &2077985747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -754,6 +754,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   target: {fileID: 7119594950144833655}
+--- !u!362 &2120208464
+WorldAnchor:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120208462}
+  serializedVersion: 2
 --- !u!1001 &7119594950144833654
 PrefabInstance:
   m_ObjectHideFlags: 0
