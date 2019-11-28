@@ -5,7 +5,7 @@ using UnityEngine;
 public class OverShoulderCamera : CameraBase
 {
 	Vector3 lastRotation = new Vector3();
-	OverShoulderCamera()
+	public OverShoulderCamera()
 	{
 		Angle  = overShoulderAngle;
 		Offset = overShoulderOffset;
@@ -35,7 +35,7 @@ public class OverShoulderCamera : CameraBase
 		transform.RotateAround(transformMaster.position, Vector3.right, rotationDelta.x);
 		transform.RotateAround(transformMaster.position, Vector3.forward, rotationDelta.z);
 		transform.RotateAround(transformMaster.position, Vector3.up, rotationDelta.y);
-		transform.LookAt(target.transform.position);
+		transform.rotation = transformMaster.rotation;
 	}
 	static private Vector3 overShoulderAngle = new Vector3(5f, 5f, 0f);
 	static private Vector3 overShoulderOffset = new Vector3(1f, .75f, -3.5f);

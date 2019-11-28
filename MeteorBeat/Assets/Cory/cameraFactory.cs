@@ -21,7 +21,13 @@ public class CameraFactory
 		temp.Target = target;
 		temp.Initialize();
 		return temp;
-
+	}
+	static public OverShoulderVR OverShoulderVRFactory(GameObject parent, GameObject target)
+	{
+		var temp = parent.AddComponent<OverShoulderVR>() as OverShoulderVR;
+		temp.Target = target;
+		temp.Initialize();
+		return temp;
 	}
 	static public CameraBase BasicCamera(GameObject parent)
 	{

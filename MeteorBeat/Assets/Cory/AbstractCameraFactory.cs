@@ -5,7 +5,7 @@ public enum CameraType
 {
 	thirdPerson = 0,
 	overTheShoulder = 1,
-	sideScroller = 2
+	overTheShoulderVR = 2
 };
 public class AbstractCameraFactory
 {
@@ -20,6 +20,10 @@ public class AbstractCameraFactory
 			case CameraType.overTheShoulder:
 				var shoulderCamera = CameraFactory.OverShoulderFactory(gameObject, target);
 				return shoulderCamera;
+				break;
+			case CameraType.overTheShoulderVR:
+				var VRCamera = CameraFactory.OverShoulderVRFactory(gameObject, target);
+				return VRCamera;
 				break;
 			default:
 				return CameraFactory.BasicCamera(gameObject);
