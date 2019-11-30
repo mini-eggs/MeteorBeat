@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.meteorbeat.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\Diuvi\\OneDrive\\Documents\\GitHub\\MeteorBeat\\MeteorBeat\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "MeteorBeat [Testing]"
+        }
+      }
+    }
+  ]
+}

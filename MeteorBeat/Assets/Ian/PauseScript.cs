@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Valve.VR;
 // Class that will bring up the pause menu and set the time scale of the game to zero.
 public class PauseScript : MonoBehaviour
 {
@@ -12,7 +12,8 @@ public class PauseScript : MonoBehaviour
    // Update is called once per frame
    void Update()
    {
-      if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1)
+
+      if((Input.GetKeyDown(KeyCode.Escape) || SteamVR_Actions._default.Pause.GetStateDown(SteamVR_Input_Sources.Any)) && Time.timeScale == 1)
       {
          pausePlane.SetActive(true);
          restartButton.gameObject.SetActive(true);
@@ -20,7 +21,7 @@ public class PauseScript : MonoBehaviour
          Time.timeScale = 0;
          BeatBox.Instance.PauseLevelSoundTrack();
       }
-      else if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0)
+      else if((Input.GetKeyDown(KeyCode.Escape)|| SteamVR_Actions._default.Pause.GetStateDown(SteamVR_Input_Sources.Any)) && Time.timeScale == 0)
       {
          pausePlane.SetActive(false);
          restartButton.gameObject.SetActive(false);
