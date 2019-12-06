@@ -11,14 +11,18 @@ public class Powerup : MonoBehaviour
     public GameObject Capsule; //The powerup object
     public int scoreToAdd = 200;
     public int powerupSpawnRate = 100;
+    public bool STRESS = false;
+
     void Start()
     {    
         if(Capsule.tag == ("Untagged")) //Only needed for stress testing
-        {    
-            //TEST();                   //STRESS TEST (See TEST() )
+        {   
+            if(STRESS == true)
+            {
+                TEST();                 //STRESS TEST (See TEST() )
+            }              
         }
         Capsule = GameObject.Find("Powerup");
-
     }
 
     private void Update()
@@ -87,7 +91,8 @@ public class Powerup : MonoBehaviour
      * From 30+ fps, my machine can handle about 512 powerup objects 
      * From <20 fps, my machine can handle about 1024+ powerup objects 
      */
-    void TEST()   
+
+     void TEST()   
     {             
         Debug.Log("STRESS TEST");
         int finalCount = 0;
@@ -99,9 +104,12 @@ public class Powerup : MonoBehaviour
             anotherCapsule.transform.position = Location;   
             anotherCapsule.tag = "Health";  //set so clone no longer looks like the parent. 
             finalCount++;
+            anotherCapsule.GetComponent<Renderer>().material.color = Color.green;
         }
         Debug.Log("Final spawn count: " +finalCount);
     }
+
+
 }
 
 
