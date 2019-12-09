@@ -16,6 +16,11 @@ public class ShipIntegration : MonoBehaviour
 
    // The ship's thrusters.
    private Particle thrusters;
+   // health and score variables (cosette)
+   UpdateHealth myHealth;
+   UpdateScore myScore;
+   public int score = 0;
+   public int health = 5;
 
    /*
     * Start
@@ -30,6 +35,9 @@ public class ShipIntegration : MonoBehaviour
 
       // Create ship thruster particles.
       thrusters = ParticleFactory.Get(ParticleType.Direction);
+      //adding to the ship score and health (cosette)
+      myHealth = GetComponent<UpdateHealth>();
+      myScore = GetComponent<UpdateScore>();
    }
 
    void Update()
@@ -49,14 +57,19 @@ public class ShipIntegration : MonoBehaviour
       ParticleFactory.Get(ParticleType.Collision).Run(spaceship);
 
       // Lock camera.
+      /* 
+       *not working
       GameObject.FindGameObjectWithTag("MainCamera")
          .GetComponent<CameraIntegration>()
          .Lock();
-
+       */
       // Lock astoid creation states. Do NOT let them disappear from 
       // user view.
-      GameObject.FindGameObjectWithTag("Player")
-         .GetComponent<LevelGeneration>()
+      
+      GetComponent<keyControls>().movementSpeed = 0;
+      GetComponent<keyControls>().flyingSpeed = 0;
+
+      GetComponent<LevelGeneration>()
          .StopCoroutines();
 
       // Play game over sounds.
@@ -90,5 +103,22 @@ public class ShipIntegration : MonoBehaviour
       // Play game over sounds.
       BeatBox.Instance.PlayGameWon();
    }
+   /*
+   * Cosette's addition
+   * Adds a health and score mechanism and attaches them to the GUI
+   */
+   
+   public void AsteroidHit(){
+      
+      health--; 
+      GameObject.FindGameObjectWithTag("Health").GetComponent<HealthTextClass>().UpdateUIElement((float)health/5f);
+      if (health <= 0){
+         CollideWithAsteroid();
+      }
+   }
+   public void RingHit(){
+
+   }
+
 
 }
