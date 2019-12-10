@@ -10,6 +10,7 @@ public class ScrollBarClass : MonoBehaviour
    // Start is called before the first frame update
    float timePlayed = 0;
    float songDuration = 322;
+   public float progress;
    void Start()
    {
       myScrollBar = GetComponent<Scrollbar>();
@@ -17,7 +18,7 @@ public class ScrollBarClass : MonoBehaviour
    }
    void Update(){
       timePlayed += Time.deltaTime;
-      float progress = timePlayed/songDuration;
+      progress = timePlayed/songDuration;
       myScrollBar.value=progress;
    }
 }
