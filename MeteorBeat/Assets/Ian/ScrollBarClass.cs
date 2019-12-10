@@ -4,18 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Class for the scroll bar. Implements UpdateUIElement from ICustomUIListener class.
-public class ScrollBarClass : MonoBehaviour, ICustomUIListener
+public class ScrollBarClass : MonoBehaviour
 {
    Scrollbar myScrollBar;
    // Start is called before the first frame update
+   float timePlayed = 0;
+   float songDuration = 322;
    void Start()
    {
       myScrollBar = GetComponent<Scrollbar>();
+      
    }
-
-   // Sets the value of the scroll bar (between 0 and 1) to whatever value is passed as info
-   public void UpdateUIElement(float info)
-   {
-      myScrollBar.value = info;
+   void Update(){
+      timePlayed += Time.deltaTime;
+      float progress = timePlayed/songDuration;
+      myScrollBar.value=progress;
    }
 }

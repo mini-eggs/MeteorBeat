@@ -4,19 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Class that updates the score UI element
-public class ScoreTextClass : MonoBehaviour, ICustomUIListener
+public class ScoreTextClass : MonoBehaviour
 {
+   public int Score = 0;
    Text myText;
     
    // Start is called before the first frame update
-   void Start()
-   {
-      myText = GetComponent<Text>();
-   }
-
+   
    // Set the score equal to the value passed in info.
-   public void UpdateUIElement(float info)
+   public void UpdateUIElement()
    {
-      myText.text = "Score: " + info.ToString();
+      Score += 100;
+      myText = GetComponent<Text>();
+      myText.text = "Score: " + Score.ToString();
    }
 }
