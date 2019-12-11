@@ -26,7 +26,7 @@ public class LevelIntegration : MonoBehaviour
 		Debug.Log("Music: " + music);
 		if (music == null)
 		{
-			s.LoadSounds(this.gameObject);
+			s.LoadSounds(this.gameObject, "soundtrack");
 		}
 		else
 			s.LoadSounds(this.gameObject, music);

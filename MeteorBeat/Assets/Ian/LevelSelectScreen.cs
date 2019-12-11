@@ -29,6 +29,11 @@ public class LevelSelectScreen : MonoBehaviour
       optionsButton.gameObject.SetActive(false);
       backButton.onClick.AddListener(BackToMainMenu);
 		LoadFileFilters();
+      if (PlayerPrefs.GetInt("isFirstTime") != 1)
+      {
+         PlayerPrefs.SetString("Music", "soundtrack");
+         PlayerPrefs.SetInt("isFirstTime", 1);
+      }
    }
 	void LoadFileFilters()
 	{
