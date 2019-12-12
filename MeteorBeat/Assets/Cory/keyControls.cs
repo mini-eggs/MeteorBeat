@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class keyControls : MonoBehaviour
 {
 	Rigidbody spaceship;
@@ -10,23 +9,28 @@ public class keyControls : MonoBehaviour
 	public float movementSpeed = 40f;
 	public  Transform shipModel;
 	public  Movement movement;
-	public Func<Vector2, Vector2, float, float> averager;
-	private Vector2 lastAverage;
 	// Start is called before the first frame update
 	void Start()
 	{
+		movement = new Movement();
 		spaceship = GetComponent<Rigidbody>();
 	}
 
 	// Update is called once per frame
+	//No Delta T?
 	void Update()
 	{
-		Vector2 average = movement.Average(lastAverage, Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-		float averageX = 0;
-		float averageY = 0; ;// = (lastAverageY * 19 + Input.GetAxis("Vertical")) / 20;
-
-		spaceship.velocity = new Vector3(Input.GetAxis("Horizontal") * movementSpeed, Input.GetAxis("Vertical") * movementSpeed, flyingSpeed);
-		shipModel.rotation = Quaternion.Euler(-averageY * 20, 0, -averageX * 30);
-		lastAverage = average;
+		if(Input.GetKeyDown(KeyCode.K))
+		{
+			flyingSpeed += 1e2f;
+		}
+		else if (Input.GetKeyDown(KeyCode.L))
+		{
+			flyingSpeed += 1e4f;
+		}
+		var x = Input.GetAxis("Horizontal");
+		var y = Input.GetAxis("Vertical");
+		spaceship.velocity = movement.Calculate(x, y, movementSpeed, flyingSpeed);
+		shipModel.rotation = movement.Rotation(x, y);
 	}
 }
