@@ -202,8 +202,8 @@ public sealed class BeatBox : ScriptableObject
     * See `LevelIntegration` script. The level will always call this
     * method first before any other usages of this singleton.
     */
-   public void LoadSounds(GameObject gameObject, String musicPath = "soundtrack")
-	{
+   public void LoadSounds(GameObject gameObject)
+   {
       if (hasLoaded)
       {
          return;
@@ -234,7 +234,7 @@ public sealed class BeatBox : ScriptableObject
       gameLostClip.clip = Resources.Load(losing) as AudioClip;
 
       gameLevelSoundClip = gameObject.AddComponent<AudioSource>();
-      gameLevelSoundClip.clip = Resources.Load(musicPath)
+      gameLevelSoundClip.clip = Resources.Load("soundtrack")
          as AudioClip; // ugh, line length.
 
       gameCollisionClip = gameObject.AddComponent<AudioSource>();

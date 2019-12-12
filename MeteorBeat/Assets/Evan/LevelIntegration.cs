@@ -22,15 +22,8 @@ public class LevelIntegration : MonoBehaviour
    void Start()
    {
       var s = BeatBox.Instance;
-		var music = PlayerPrefs.GetString("Music");
-		Debug.Log("Music: " + music);
-		if (music == null)
-		{
-			s.LoadSounds(this.gameObject, "soundtrack");
-		}
-		else
-			s.LoadSounds(this.gameObject, music);
-		// First sound that plays always. Load all game sounds on start.
+      // First sound that plays always. Load all game sounds on start.
+      s.LoadSounds(this.gameObject);
       s.PlayLevelSoundTrack();
       isRunning = true;
    }
